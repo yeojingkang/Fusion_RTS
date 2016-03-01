@@ -30,8 +30,8 @@ public class ObjectControls : MonoBehaviour {
 
 			selected_units.Clear();
 
-			foreach(GameObject unit in owned_units.transform) {
-				Vector3 unitScreenPos = camera.WorldToScreenPoint(unit.transform.position);
+			foreach(Transform unit in owned_units.transform) {
+				Vector3 unitScreenPos = camera.WorldToScreenPoint(unit.position);
 
 				if(unitScreenPos.x > selection_box.xMin && unitScreenPos.x < selection_box.xMax
 				&& unitScreenPos.y > selection_box.yMin && unitScreenPos.y < selection_box.yMax) {

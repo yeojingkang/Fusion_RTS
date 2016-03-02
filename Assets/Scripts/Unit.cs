@@ -13,7 +13,7 @@ public class Unit : Object {
 		type = ObjectType.OBJECT_TYPE_UNIT;
 
 		NavMeshAgent agent = GetComponent<NavMeshAgent>();
-		agent.SetDestination(new Vector3(-6, 0, -10));
+		agent.SetDestination(new Vector3(50, 0, 77));
 	}
 
 	// Update is called once per frame

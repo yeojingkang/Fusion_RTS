@@ -5,7 +5,7 @@ using System.Collections;
 
 public class NetworkManagerScript : MonoBehaviour {
 
-	const float panelSizeRatio = 0.75f;
+	public float panelSizeMinification;
 
 	NetworkManager m_networkMgr;
 	NetworkManagerHUD m_networkMgrHud;
@@ -22,8 +22,8 @@ public class NetworkManagerScript : MonoBehaviour {
 		m_networkMgrHud.manager = m_networkMgr;
 
 		// Network panel UI
-		int panelSize_x = (int)(Screen.width * panelSizeRatio);
-		int panelSize_y = (int)(Screen.height * panelSizeRatio);
+		int panelSize_x = (int)(Screen.width * panelSizeMinification);
+		int panelSize_y = (int)(Screen.height * panelSizeMinification);
 		m_networkPanel.sizeDelta = new Vector2(panelSize_x, panelSize_y);
 		m_networkPanel.localPosition = new Vector3(0, 0, 0);
 	}

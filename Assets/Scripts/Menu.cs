@@ -21,8 +21,6 @@ public class Menu : MonoBehaviour {
     bool isHost = false;
     MenuType CurrentMenu = MenuType.MainMenu;
 
-
-
     void Start()
     {
         playerIP.text = "IP Address: "+TestIP();

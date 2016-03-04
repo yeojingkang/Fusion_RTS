@@ -164,7 +164,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: BGM
+  m_Text: 'SFX
+
+'
 --- !u!114 &11458396
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -232,7 +234,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 22431966}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -259,7 +261,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 981a1c8b69016034ea3f46bf57bc3bf0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 33b721082689e7a41b5d92cc59b8a411, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -508,7 +510,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -66.4, y: 53.6}
+  m_AnchoredPosition: {x: -66.4, y: 19.68}
   m_SizeDelta: {x: 96.3, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &22465118

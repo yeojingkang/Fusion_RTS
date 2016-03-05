@@ -1034,7 +1034,7 @@ GameObject:
   - 114: {fileID: 372229144}
   - 114: {fileID: 372229143}
   m_Layer: 5
-  m_Name: Button (4)
+  m_Name: Exit Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1101,6 +1101,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 798914577}
         m_MethodName: SwitchMenu
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1358540829}
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

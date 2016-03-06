@@ -57,6 +57,11 @@ public class OptionMenu : MonoBehaviour {
     public GameObject ScrollingSense;
     public GameObject EdgeScrollingSense;
 
+    void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
+
     public void SaveOptions()
     {
         Options loadedOptions = new Options();
@@ -149,10 +154,13 @@ public class OptionMenu : MonoBehaviour {
         bf.Serialize(file, OptionData);
         file.Close();
     }
-
-    public void SetSliderMin()
+    
+    public void ToggleOnOff()
     {
-
+        if(gameObject.activeSelf)
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
 

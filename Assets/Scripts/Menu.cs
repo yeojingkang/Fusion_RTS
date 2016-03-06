@@ -17,12 +17,17 @@ public class Menu : MonoBehaviour {
     public GameObject MainMenu;
     public GameObject ConnectionMenu;
     public GameObject RoomMenu;
+    public GameObject OptionsMenu;
 
     bool isHost = false;
     MenuType CurrentMenu = MenuType.MainMenu;
-
+    void Awake()
+    {
+        DontDestroyOnLoad(transform.gameObject);
+    }
     void Start()
     {
+       
         playerIP.text = "IP Address: "+TestIP();
     }
 
@@ -52,6 +57,7 @@ public class Menu : MonoBehaviour {
                 RoomMenu.SetActive(true);
                 break;
             case MenuType.StartedGame:
+                RoomMenu.SetActive(false);
                 Application.LoadLevel(1);
                 break;
         }
@@ -66,5 +72,9 @@ public class Menu : MonoBehaviour {
         return Network.player.ipAddress;
     }
 
+    public void ToggleOnOffOptions()
+    {
+        OptionsMenu.SetActive(!OptionsMenu.activeSelf);
+    }
 
 }

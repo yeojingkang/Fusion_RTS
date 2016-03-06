@@ -1099,7 +1099,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 798914577}
+      - m_Target: {fileID: 1253332228}
         m_MethodName: SwitchMenu
         m_Mode: 6
         m_Arguments:
@@ -1296,7 +1296,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 798914577}
+      - m_Target: {fileID: 1253332228}
         m_MethodName: SwitchMenu
         m_Mode: 6
         m_Arguments:
@@ -1683,49 +1683,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 774296035}
---- !u!1 &798914576
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 798914578}
-  - 114: {fileID: 798914577}
-  m_Layer: 0
-  m_Name: Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &798914577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 798914576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bc0ba7aec26760489e2bb42e3a9a26f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerIP: {fileID: 1786722950}
-  MainMenu: {fileID: 1963578223}
-  ConnectionMenu: {fileID: 1358540829}
-  RoomMenu: {fileID: 1676006711}
---- !u!4 &798914578
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 798914576}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 258.63635, y: 195.70464, z: 246.58932}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
 --- !u!1 &806772988
 GameObject:
   m_ObjectHideFlags: 0
@@ -2250,7 +2207,7 @@ GameObject:
   - 114: {fileID: 936584800}
   - 114: {fileID: 936584799}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Start Game Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2315,7 +2272,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 798914577}
+      - m_Target: {fileID: 1253332228}
         m_MethodName: SwitchMenu
         m_Mode: 6
         m_Arguments:
@@ -2771,8 +2728,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: SwitchMenu
+      - m_Target: {fileID: 28012106}
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2984,6 +2941,7 @@ GameObject:
   - 223: {fileID: 1253332227}
   - 114: {fileID: 1253332226}
   - 114: {fileID: 1253332225}
+  - 114: {fileID: 1253332228}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3074,6 +3032,22 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1253332228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1253332223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc0ba7aec26760489e2bb42e3a9a26f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerIP: {fileID: 1786722950}
+  MainMenu: {fileID: 1963578223}
+  ConnectionMenu: {fileID: 1358540829}
+  RoomMenu: {fileID: 1676006711}
+  OptionsMenu: {fileID: 28012106}
 --- !u!224 &1270531747 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22464892, guid: 7216e59c1ef72524d8ab026c4563d19b,
@@ -3417,7 +3391,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 798914577}
+      - m_Target: {fileID: 1253332228}
         m_MethodName: SwitchMenu
         m_Mode: 6
         m_Arguments:
@@ -3477,7 +3451,7 @@ GameObject:
   - 114: {fileID: 1399156322}
   - 114: {fileID: 1399156321}
   m_Layer: 5
-  m_Name: Button (2)
+  m_Name: Start Game BUtton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3542,7 +3516,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 798914577}
+      - m_Target: {fileID: 1253332228}
         m_MethodName: SwitchMenu
         m_Mode: 6
         m_Arguments:
@@ -3676,7 +3650,7 @@ Prefab:
     - target: {fileID: 11496900, guid: 7216e59c1ef72524d8ab026c4563d19b, type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 798914577}
+      objectReference: {fileID: 0}
     - target: {fileID: 22452518, guid: 7216e59c1ef72524d8ab026c4563d19b, type: 2}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -4883,7 +4857,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 798914577}
+      - m_Target: {fileID: 1253332228}
         m_MethodName: SwitchMenu
         m_Mode: 6
         m_Arguments:
@@ -5159,9 +5133,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 28012106}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 28012108}
+        m_MethodName: LoadOptions
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5170,8 +5144,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 28012108}
-        m_MethodName: LoadOptions
+      - m_Target: {fileID: 1253332228}
+        m_MethodName: ToggleOnOffOptions
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

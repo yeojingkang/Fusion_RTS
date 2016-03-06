@@ -46,7 +46,7 @@ public class OptionMenu : MonoBehaviour {
             case OptionsState.Closed:
                 AudioTab.SetActive(true);
                 ControlsTab.SetActive(false);
-                gameObject.SetActive(false);
+               
                 break;
         }
     }
@@ -155,13 +155,7 @@ public class OptionMenu : MonoBehaviour {
         file.Close();
     }
     
-    public void ToggleOnOff()
-    {
-        if(gameObject.activeSelf)
-        {
-            gameObject.SetActive(false);
-        }
-    }
+    
 }
 
 [Serializable]

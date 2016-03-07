@@ -6,54 +6,29 @@ using System;
 using UnityEngine.UI;
 public class OptionMenu : MonoBehaviour {
 
+    //states of the options menu
 	enum OptionsState
     {
+        Settings=0,
         Audio=1,
         Controls=2,
         Closed=3
     }
 
+    //default state = closed
     OptionsState currentState = OptionsState.Closed;
 
+    //tabs in the options
     public GameObject AudioTab;
     public GameObject ControlsTab;
 
-    public void SwitchOptionsState(int state)
-    {
-        switch(state)
-        {
-            case 1:
-                currentState = OptionsState.Audio;
-                break;
-            case 2:
-                currentState = OptionsState.Controls;
-                break;
-            case 3:
-                currentState = OptionsState.Closed;
-                break;
-        }
+    //panels 
+    public GameObject SettingsPanel;
+    public GameObject OptionsPanel;
 
-        switch(currentState)
-        {
-            case OptionsState.Audio:
-                AudioTab.SetActive(true);
-                ControlsTab.SetActive(false);
-                break;
-            case OptionsState.Controls:
-                AudioTab.SetActive(false);
-                ControlsTab.SetActive(true);
-                break;
-            case OptionsState.Closed:
-                AudioTab.SetActive(true);
-                ControlsTab.SetActive(false);
-               
-                break;
-        }
-    }
-
+    //sliders
     public GameObject BGMSlider;
     public GameObject SFXSlider;
-
     public GameObject ScrollingSense;
     public GameObject EdgeScrollingSense;
 
@@ -62,6 +37,7 @@ public class OptionMenu : MonoBehaviour {
         DontDestroyOnLoad(transform.gameObject);
     }
 
+    //saves the options of the game when the user request to save
     public void SaveOptions()
     {
         Options loadedOptions = new Options();
@@ -101,6 +77,7 @@ public class OptionMenu : MonoBehaviour {
         file.Close();
     }
 
+    //load the options of the game
     public void LoadOptions()
     {
         if (File.Exists(Application.persistentDataPath + "/Options.fusion"))
@@ -122,6 +99,7 @@ public class OptionMenu : MonoBehaviour {
         }
     }
 
+    //resets options of the game to default
     public void ResetOptions()
     {
         BinaryFormatter bf = new BinaryFormatter();
@@ -154,8 +132,100 @@ public class OptionMenu : MonoBehaviour {
         bf.Serialize(file, OptionData);
         file.Close();
     }
-    
-    
+
+    //switch the state in which the option is in
+    public void SwitchOptionsState(int state)
+    {
+        switch (state)
+        {
+            case 0:
+                currentState = OptionsState.Settings;
+                break;
+            case 1:
+                currentState = OptionsState.Audio;
+                break;
+            case 2:
+                currentState = OptionsState.Controls;
+                break;
+            case 3:
+                currentState = OptionsState.Closed;
+                break;
+        }
+
+        switch (currentState)
+        {
+            case OptionsState.Settings:
+                if (SettingsPanel.activeSelf)
+                {
+                    SwitchOptionsState(3);
+                }
+                else
+                {
+                    SettingsPanel.SetActive(true);
+                    OptionsPanel.SetActive(false);
+                }
+                break;
+            case OptionsState.Audio:
+                SettingsPanel.SetActive(false);
+                AudioTab.SetActive(true);
+                ControlsTab.SetActive(false);
+
+                BGMSlider.transform.parent.GetChild(2).GetComponent<InputField>().text = 
+                    BGMSlider.GetComponent<Slider>().value.ToString();
+
+                SFXSlider.transform.parent.GetChild(2).GetComponent<InputField>().text =
+                    SFXSlider.GetComponent<Slider>().value.ToString();
+
+                break;
+            case OptionsState.Controls:
+                AudioTab.SetActive(false);
+                ControlsTab.SetActive(true);
+
+                EdgeScrollingSense.transform.parent.GetChild(2).GetComponent<InputField>().text =
+                    EdgeScrollingSense.GetComponent<Slider>().value.ToString();
+                SetInputValueLoading(ScrollingSense);
+                break;
+            case OptionsState.Closed:
+                AudioTab.SetActive(true);
+                ControlsTab.SetActive(false);
+                SettingsPanel.SetActive(false);
+
+                break;
+        }
+    }
+
+    public void SetSliderZero(GameObject test)
+    {
+        test.transform.GetChild(1).GetComponent<Slider>().value = 0;
+    }
+
+    public void SetSliderValue(GameObject test)
+    {
+        if (float.Parse(test.transform.GetChild(2).GetComponent<InputField>().text) > 100.0f)
+        {
+            test.transform.GetChild(2).GetComponent<InputField>().text = (100).ToString();
+        }
+        else if(float.Parse(test.transform.GetChild(2).GetComponent<InputField>().text) < 0.0f)
+        {
+            test.transform.GetChild(2).GetComponent<InputField>().text = (0).ToString();
+        }
+        test.transform.GetChild(1).GetComponent<Slider>().value = float.Parse(test.transform.GetChild(2).GetComponent<InputField>().text);
+    }
+
+    public void SetInputValue(GameObject TheSlider)
+    {
+        TheSlider.transform.parent.GetChild(2).GetComponent<InputField>().text =
+                    (Mathf.Round(TheSlider.GetComponent<Slider>().value * 1000.0f) / 1000.0f).ToString();
+    }
+
+    void SetInputValueLoading(GameObject TheSlider)
+    {
+        TheSlider.transform.parent.GetChild(2).GetComponent<InputField>().text =
+                    (Mathf.Round(TheSlider.GetComponent<Slider>().value*1000.0f)/1000.0f).ToString();
+
+
+    }
+
 }
 
 [Serializable]

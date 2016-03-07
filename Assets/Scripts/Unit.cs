@@ -19,6 +19,9 @@ public class Unit : Object {
 
 	// Update is called once per frame
 	new void	Update () {
+		if (!isLocalPlayer)
+			return;
+
 		base.Update();
 		DoCurrentCommand();
 	}

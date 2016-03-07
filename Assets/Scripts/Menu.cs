@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using System.Net;
+using UnityEngine.SceneManagement;
 public class Menu : MonoBehaviour {
 
     enum MenuType
@@ -58,7 +59,8 @@ public class Menu : MonoBehaviour {
                 break;
             case MenuType.StartedGame:
                 RoomMenu.SetActive(false);
-                Application.LoadLevel(1);
+				//Application.LoadLevel(1);	// DEPRECATED
+				SceneManager.LoadScene(1);	// NEW API
                 break;
         }
 

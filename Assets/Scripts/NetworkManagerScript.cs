@@ -7,28 +7,24 @@ public class NetworkManagerScript : MonoBehaviour {
 
 	public float			m_pingRefreshRate;
 	public float			m_panelSizeMinification;
-	public RectTransform	m_networkPanel;
+	//public RectTransform	m_networkPanel;
 	public Text				m_connectionStatus;
 	public string			m_ipAddressToPing;
+	public InputField		m_ipAddressToConnect;
 
 	bool				m_hasConnection;
 	NetworkManager		m_networkMgr;
-	NetworkManagerHUD	m_networkMgrHud;
 
 	void Awake () {
 		// Test code
 		if (!m_networkMgr)
 			m_networkMgr = GetComponent<NetworkManager>();
 
-		// Network Manager HUD initialization
-		m_networkMgrHud = GetComponent<NetworkManagerHUD>();
-		m_networkMgrHud.manager = m_networkMgr;
-
 		// Network panel UI
-		int panelSize_x = (int)(Screen.width * m_panelSizeMinification);
-		int panelSize_y = (int)(Screen.height * m_panelSizeMinification);
-		m_networkPanel.sizeDelta = new Vector2(panelSize_x, panelSize_y);
-		m_networkPanel.localPosition = new Vector3(0, 0, 0);
+		//int panelSize_x = (int)(Screen.width * m_panelSizeMinification);
+		//int panelSize_y = (int)(Screen.height * m_panelSizeMinification);
+		//m_networkPanel.sizeDelta = new Vector2(panelSize_x, panelSize_y);
+		//m_networkPanel.localPosition = new Vector3(0, 0, 0);
 
 		m_hasConnection = false;
 
@@ -69,9 +65,53 @@ public class NetworkManagerScript : MonoBehaviour {
 	}
 
 	void UpdateConnectionStatus() {
-		if (m_hasConnection)
-			m_connectionStatus.text = "Connection: YES";
-		else
-			m_connectionStatus.text = "Connection: NO";
+		//if (m_hasConnection)
+		//	m_connectionStatus.text = "Connection: YES";
+		//else
+		//	m_connectionStatus.text = "Connection: NO";
+	}
+
+	public void StartHost() {
+		if (NetworkServer.active)
+			return;
+
+		m_networkMgr.StartHost();
+	}
+
+	public void StartClient() {
+		if (NetworkClient.active)
+			return;
+
+		m_ipAddressToConnect.text.ToLower();
+		if (!m_ipAddressToConnect.text.Equals("localhost") &&
+			m_ipAddressToConnect.text.Contains("abcdefghijklmnopqrstuvwxyz")) {
+			Debug.Log("IP Address entered is invalid!");
+			return;
+		}
+
+		m_networkMgr.StartClient();
+		m_networkMgr.networkAddress = m_ipAddressToConnect.text;
+
+		if (!ClientScene.ready)
+		{
+			ClientScene.Ready(m_networkMgr.client.connection);
+
+			if (ClientScene.localPlayers.Count == 0)
+				ClientScene.AddPlayer(0);
+		}
+	}
+
+	public void StopHost() {
+		if (!NetworkServer.active)
+			return;
+		
+		m_networkMgr.StopHost();
+	}
+
+	public void StopClient() {
+		if (!NetworkClient.active)
+			return;
+
+		m_networkMgr.StopClient();
 	}
 }

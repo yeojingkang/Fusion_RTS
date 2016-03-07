@@ -4,12 +4,12 @@ using System.Collections;
 public class Building : Object {
 
 	// Use this for initialization
-	void Start () {
+	new void Start () {
 		type = ObjectType.OBJECT_TYPE_BUILDING;
 	}
 	
 	// Update is called once per frame
-	void Update () {
-
+	new void Update () {
+		base.Update();
 	}
 }

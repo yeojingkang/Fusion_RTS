@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Building : Object {
+public class Building : Objects {
 
 	// Use this for initialization
 	new void Start () {

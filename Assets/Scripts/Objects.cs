@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Networking;
 
-public class Object : MonoBehaviour {
+public class Object : NetworkBehaviour {
 	public enum ObjectType {
 		OBJECT_TYPE_NONE = 0,
 		OBJECT_TYPE_UNIT,
@@ -39,6 +40,9 @@ public class Object : MonoBehaviour {
 
 	// Update is called once per frame
 	protected void Update () {
+		if (!isLocalPlayer)
+			return;
+
 		direction = gameObject.transform.forward;
 	}
 

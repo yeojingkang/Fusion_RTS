@@ -782,18 +782,11 @@ Prefab:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 11468602, guid: c51929e1e90579640947a600aa98c73a, type: 2}
-      propertyPath: m_networkPanel
+      propertyPath: m_ipAddressToConnect
       value: 
-      objectReference: {fileID: 1896453555}
-    - target: {fileID: 177108, guid: c51929e1e90579640947a600aa98c73a, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11435088, guid: c51929e1e90579640947a600aa98c73a, type: 2}
-      propertyPath: m_DontDestroyOnLoad
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+      objectReference: {fileID: 2079362049}
+    m_RemovedComponents:
+    - {fileID: 11484266, guid: c51929e1e90579640947a600aa98c73a, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c51929e1e90579640947a600aa98c73a, type: 2}
   m_IsPrefabParent: 0
 --- !u!224 &281353761 stripped

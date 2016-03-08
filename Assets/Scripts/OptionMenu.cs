@@ -183,7 +183,9 @@ public class OptionMenu : MonoBehaviour {
 
                 EdgeScrollingSense.transform.parent.GetChild(2).GetComponent<InputField>().text =
                     EdgeScrollingSense.GetComponent<Slider>().value.ToString();
-                SetInputValueLoading(ScrollingSense);
+                ScrollingSense.transform.parent.GetChild(2).GetComponent<InputField>().text =
+                    ScrollingSense.GetComponent<Slider>().value.ToString();
+               
                 break;
             case OptionsState.Closed:
                 AudioTab.SetActive(true);
@@ -218,12 +220,13 @@ public class OptionMenu : MonoBehaviour {
                     (Mathf.Round(TheSlider.GetComponent<Slider>().value * 1000.0f) / 1000.0f).ToString();
     }
 
-    void SetInputValueLoading(GameObject TheSlider)
+    public void checkInput(GameObject input)
     {
-        TheSlider.transform.parent.GetChild(2).GetComponent<InputField>().text =
-                    (Mathf.Round(TheSlider.GetComponent<Slider>().value*1000.0f)/1000.0f).ToString();
-
-
+        if ((input.GetComponent<InputField>().text.Length == 0 || input.GetComponent<InputField>().text ==null)
+            || (float.Parse(input.GetComponent<InputField>().text) <= 0 && float.Parse(input.GetComponent<InputField>().text) >= 100))
+        {
+            input.GetComponent<InputField>().text = "0";
+        }
     }
 
 }

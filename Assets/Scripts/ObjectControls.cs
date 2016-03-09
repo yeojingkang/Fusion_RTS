@@ -11,7 +11,7 @@ public class ObjectControls : MonoBehaviour {
 	bool				dragging = false;
 	Vector3				start_mouse_position = new Vector3(0, 0, 0);
 
-	List<Objects>		selected_units = new List<Objects>();
+	List<Objects>		selected_objects = new List<Objects>();
 
 	// Use this for initialization
 	void Start () {
@@ -42,18 +42,20 @@ public class ObjectControls : MonoBehaviour {
 		}
 		else if (Input.GetMouseButtonUp(0))
 		{
-			selected_units.Clear();
-
 			if (dragging)
 			{
 				//Player is drag selecting
+				bool hasUnit = false;
 				foreach (Transform unit in owned_units.transform)
 				{
 					Vector3 unitScreenPos = camera.WorldToScreenPoint(unit.position);
 
-					if (selection_box.Contains(unitScreenPos, true))
-					{
-						selected_units.Add(unit.GetComponent<Objects>());
+					if (selection_box.Contains(unitScreenPos, true)) {
+						if(!hasUnit) {
+							hasUnit = true;
+							selected_objects.Clear();
+						}
+						selected_objects.Add(unit.GetComponent<Objects>());
 					}
 				}
 			}
@@ -65,8 +67,10 @@ public class ObjectControls : MonoBehaviour {
 				if (Physics.Raycast(ray, out hit))
 				{
 					Objects collided = hit.collider.gameObject.GetComponent<Objects>();
-					if (collided != null)
-						selected_units.Add(collided);
+					if (collided != null) {
+						selected_objects.Clear();
+						selected_objects.Add(collided);
+					}
 				}
 			}
 
@@ -74,16 +78,22 @@ public class ObjectControls : MonoBehaviour {
 		}
 	}
 	void updateRightClickInputs() {
-		if(Input.GetMouseButtonDown(1)) {
-			if(selected_units.Count > 0) {
+		if (Input.GetMouseButtonDown(1)) {
+			if (selected_objects.Count > 0) {	//Ignore if no unit is selected
 				Ray ray = camera.ScreenPointToRay(Input.mousePosition);
 				RaycastHit hit;
-				//LayerMask mask = 
 
-				if(Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Level terrain"))) {
-
-					foreach (Objects unit in selected_units) {
-						unit.SetSingleCommand(ObjectCommands.Commands.UNIT_MOVE, hit.point);
+				if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Level terrain"))) {
+					//Give move command to all selected units
+					if (Input.GetKey(KeyCode.LeftShift)
+					 || Input.GetKey(KeyCode.RightShift)) {
+						//Add command to the queue if shift button is held down
+						foreach (Objects unit in selected_objects)
+							unit.AddCommand(ObjectCommands.Commands.UNIT_MOVE, hit.point);
+					}
+					else {
+						foreach (Objects unit in selected_objects)
+							unit.SetSingleCommand(ObjectCommands.Commands.UNIT_MOVE, hit.point);
 					}
 				}
 			}

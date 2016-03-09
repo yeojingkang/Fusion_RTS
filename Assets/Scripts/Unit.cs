@@ -11,8 +11,8 @@ public class Unit : Objects {
 
 		agent = GetComponent<NavMeshAgent>();
 		agent.speed = move_speed;
-		//agent.SetDestination(new Vector3(50, 0, 77));
-		AddCommand(ObjectCommands.Commands.UNIT_MOVE, new Vector3(50, 0, 77));
+		agent.acceleration = 9999.0f;
+		agent.stoppingDistance = 2.5f;
 	}
 
 	// Update is called once per frame
@@ -58,7 +58,7 @@ public class Unit : Objects {
 			current_command.startExecute = true;
 		}
 		else {
-			if (agent.remainingDistance <= float.Epsilon)
+			if (agent.remainingDistance <= agent.stoppingDistance)
 				//Agent reached target position
 				GetNextCommand();
 		}
@@ -71,7 +71,7 @@ public class Unit : Objects {
 		else {
 			//Check for nearby enemy
 			//If found, set targetObject
-			if (agent.remainingDistance <= float.Epsilon
+			if (agent.remainingDistance <= agent.stoppingDistance
 			 && current_command.GetTargetObject() == null)
 				GetNextCommand();
 		}

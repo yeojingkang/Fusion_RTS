@@ -3,22 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class ObjectControls : MonoBehaviour {
+	Camera				camera = null;
+
 	public GameObject	owned_units = null;
 	public Canvas		canvas = null;
 	Rect				selection_box = new Rect(0, 0, 0, 0);
 	bool				dragging = false;
 	Vector3				start_mouse_position = new Vector3(0, 0, 0);
 
-	List<Object>		selected_units = new List<Object>();
+	List<Objects>		selected_units = new List<Objects>();
 
 	// Use this for initialization
 	void Start () {
-
+		camera = GetComponent<Camera>();
 	}
 
 	// Update is called once per frame
 	void Update () {
 		updateLeftClickInputs();
+		updateRightClickInputs();
 	}
 
 	void updateLeftClickInputs() {
@@ -39,8 +42,6 @@ public class ObjectControls : MonoBehaviour {
 		}
 		else if (Input.GetMouseButtonUp(0))
 		{
-			Camera camera = GetComponent<Camera>();
-
 			selected_units.Clear();
 
 			if (dragging)
@@ -52,7 +53,7 @@ public class ObjectControls : MonoBehaviour {
 
 					if (selection_box.Contains(unitScreenPos, true))
 					{
-						selected_units.Add(unit.GetComponent<Object>());
+						selected_units.Add(unit.GetComponent<Objects>());
 					}
 				}
 			}
@@ -63,13 +64,29 @@ public class ObjectControls : MonoBehaviour {
 
 				if (Physics.Raycast(ray, out hit))
 				{
-					Object collided = hit.collider.gameObject.GetComponent<Object>();
+					Objects collided = hit.collider.gameObject.GetComponent<Objects>();
 					if (collided != null)
 						selected_units.Add(collided);
 				}
 			}
 
 			dragging = false;
+		}
+	}
+	void updateRightClickInputs() {
+		if(Input.GetMouseButtonDown(1)) {
+			if(selected_units.Count > 0) {
+				Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+				RaycastHit hit;
+				//LayerMask mask = 
+
+				if(Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Level terrain"))) {
+
+					foreach (Objects unit in selected_units) {
+						unit.SetSingleCommand(ObjectCommands.Commands.UNIT_MOVE, hit.point);
+					}
+				}
+			}
 		}
 	}
 }

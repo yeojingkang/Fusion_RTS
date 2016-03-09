@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Networking;
 
-public class Objects : NetworkBehaviour {
+public class Objects : MonoBehaviour {
 	public enum ObjectType {
 		OBJECT_TYPE_NONE = 0,
 		OBJECT_TYPE_UNIT,
@@ -30,9 +30,17 @@ public class Objects : NetworkBehaviour {
 		direction = gameObject.transform.forward;
 	}
 
-	protected void	AddCommand(ObjectCommands newCommand) { command_queue.Add(newCommand); }
-	protected void	AddCommand(ObjectCommands.Commands type, Vector3 targetPos = default(Vector3), Object targetObject = null) {
+	public void	AddCommand(ObjectCommands newCommand) { command_queue.Add(newCommand); }
+	public void	AddCommand(ObjectCommands.Commands type, Vector3 targetPos = default(Vector3), Object targetObject = null) {
 		command_queue.Add(new ObjectCommands(type, targetPos, targetObject));
+	}
+	public void SetSingleCommand(ObjectCommands newCommand) {
+		StopAllCommands();
+		AddCommand(newCommand);
+	}
+	public void SetSingleCommand(ObjectCommands.Commands type, Vector3 targetPos = default(Vector3), Object targetObject = null) {
+		StopAllCommands();
+		AddCommand(type, targetPos, targetObject);
 	}
 	protected void	AddCommandInIndex(int index, ObjectCommands newCommand) { command_queue.Insert(index, newCommand); }
 	protected void	AddCommandInIndex(int index, ObjectCommands.Commands type, Vector3 targetPos = default(Vector3), Object targetObject = null) {
@@ -47,7 +55,6 @@ public class Objects : NetworkBehaviour {
 		else {
 			current_command.Reset();
 		}
-
 	}
 	protected void	ClearCommandQueue() { command_queue.Clear(); }
 	protected void	StopAllCommands() {

@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Unit : Objects {
-	float	move_speed = 1.0f;
+	float	move_speed = 10.0f;
 	NavMeshAgent	agent = null;
 
 	// Use this for initialization
@@ -12,7 +12,7 @@ public class Unit : Objects {
 		agent = GetComponent<NavMeshAgent>();
 		agent.speed = move_speed;
 		//agent.SetDestination(new Vector3(50, 0, 77));
-		AddCommand(ObjectCommands.Commands.UNIT_MOVE, new Vector3(50, 0, 77), null);
+		AddCommand(ObjectCommands.Commands.UNIT_MOVE, new Vector3(50, 0, 77));
 	}
 
 	// Update is called once per frame

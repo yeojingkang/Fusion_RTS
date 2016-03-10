@@ -19,6 +19,7 @@ public class Menu : MonoBehaviour {
     public GameObject ConnectionMenu;
     public GameObject RoomMenu;
     public GameObject OptionsMenu;
+    public InputField Namespace;
 
     bool isHost = false;
     MenuType CurrentMenu = MenuType.MainMenu;
@@ -36,7 +37,19 @@ public class Menu : MonoBehaviour {
     {
         if (forward)
         {
-            CurrentMenu++;
+            if(CurrentMenu == MenuType.MainMenu)
+            {
+                if(!string.IsNullOrEmpty(Namespace.text))
+                {
+                    CurrentMenu++;
+                }
+
+            }
+            else
+            {
+                CurrentMenu++;
+            }
+            
         }
         else
         {

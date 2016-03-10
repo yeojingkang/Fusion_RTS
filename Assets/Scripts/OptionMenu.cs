@@ -4,6 +4,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 public class OptionMenu : MonoBehaviour {
 
     //states of the options menu
@@ -32,9 +33,15 @@ public class OptionMenu : MonoBehaviour {
     public GameObject ScrollingSense;
     public GameObject EdgeScrollingSense;
 
+    //Audio Source
+    public AudioSource BGMSource;
+    public AudioSource SFXSource;
+
     void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
+        LoadOptions();
+
     }
 
     void Update()
@@ -43,6 +50,8 @@ public class OptionMenu : MonoBehaviour {
         {
            SwitchOptionsState(0);
         }
+
+        BGMSource.volume = (BGMSlider.GetComponent<Slider>().value / 100);
     }
 
     //saves the options of the game when the user request to save
@@ -98,6 +107,8 @@ public class OptionMenu : MonoBehaviour {
             {
                 BGMSlider.GetComponent<Slider>().value = OptionData.BGM;
                 SFXSlider.GetComponent<Slider>().value = OptionData.SFX;
+                BGMSource.volume = OptionData.BGM / 100;
+                SFXSource.volume = OptionData.SFX / 100;
             }
             else if(ControlsTab.activeSelf)
             {
@@ -241,6 +252,8 @@ public class OptionMenu : MonoBehaviour {
     {
         Application.Quit();
     }
+
+    
 
 }
 

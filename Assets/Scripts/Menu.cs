@@ -32,6 +32,14 @@ public class Menu : MonoBehaviour {
         playerIP.text = "IP Address: "+TestIP();
     }
 
+    void Update()
+    {
+        //if(Input.GetKeyDown(KeyCode.Escape))
+        //{
+        //    SwitchMenu(false);
+        //}
+    }
+
     public void SwitchMenu(bool forward)
     {
         if (forward)
@@ -79,4 +87,5 @@ public class Menu : MonoBehaviour {
         OptionsMenu.SetActive(!OptionsMenu.activeSelf);
     }
 
+    
 }

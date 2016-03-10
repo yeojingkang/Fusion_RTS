@@ -37,6 +37,14 @@ public class OptionMenu : MonoBehaviour {
         DontDestroyOnLoad(transform.gameObject);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+           SwitchOptionsState(0);
+        }
+    }
+
     //saves the options of the game when the user request to save
     public void SaveOptions()
     {
@@ -227,6 +235,11 @@ public class OptionMenu : MonoBehaviour {
         {
             input.GetComponent<InputField>().text = "0";
         }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
 }

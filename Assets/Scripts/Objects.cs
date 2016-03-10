@@ -57,7 +57,7 @@ public class Objects : MonoBehaviour {
 		}
 	}
 	protected void	ClearCommandQueue() { command_queue.Clear(); }
-	protected void	StopAllCommands() {
+	public void		StopAllCommands() {
 		command_queue.Clear();
 		current_command.Reset();
 	}

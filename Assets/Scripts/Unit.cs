@@ -2,8 +2,10 @@
 using System.Collections;
 
 public class Unit : Objects {
-	float	move_speed = 10.0f;
+	float			move_speed = 10.0f;
 	NavMeshAgent	agent = null;
+
+	Spell[] spells = new Spell[5];
 
 	// Use this for initialization
 	new void	Start () {
@@ -26,8 +28,10 @@ public class Unit : Objects {
 
 	void	DoCurrentCommand() {
 		if (current_command.GetCommandType() == ObjectCommands.Commands.COMMANDS_NONE
-		 && command_queue.Count <= 0)
+		 && command_queue.Count <= 0) {
+			agent.Stop();
 			return;
+		}
 
 		//Get next command and proceed to next loop if current command is not valid
 		if(!(current_command.GetCommandType() > ObjectCommands.Commands.UNIT_COMMANDS_START
@@ -44,6 +48,7 @@ public class Unit : Objects {
 			DoAttackMove();
 			break;
 		case ObjectCommands.Commands.UNIT_ATTACK:
+			DoAttack();
 			break;
 		case ObjectCommands.Commands.UNIT_PATROL:
 			break;
@@ -55,6 +60,7 @@ public class Unit : Objects {
 	void	DoMove() {
 		if(!current_command.startExecute) {
 			agent.SetDestination(current_command.GetTargetPos());
+			agent.Resume();
 			current_command.startExecute = true;
 		}
 		else {
@@ -66,6 +72,7 @@ public class Unit : Objects {
 	void	DoAttackMove() {
 		if (!current_command.startExecute) {
 			agent.SetDestination(current_command.GetTargetPos());
+			agent.Resume();
 			current_command.startExecute = true;
 		}
 		else {
@@ -75,5 +82,11 @@ public class Unit : Objects {
 			 && current_command.GetTargetObject() == null)
 				GetNextCommand();
 		}
+	}
+	void	DoAttack() {
+	}
+
+	void	CastSpell(int index) {
+
 	}
 }

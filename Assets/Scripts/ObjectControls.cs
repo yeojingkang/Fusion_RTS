@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class ObjectControls : MonoBehaviour {
-	Camera				camera = null;
+	new Camera			camera = null;
 
 	float				hp = 0;
 
@@ -14,6 +14,8 @@ public class ObjectControls : MonoBehaviour {
 	Vector3				start_mouse_position = new Vector3(0, 0, 0);
 
 	List<Objects>		selected_objects = new List<Objects>();
+
+	int					left_click_command = -1;
 
 	// Use this for initialization
 	void Start () {
@@ -34,6 +36,36 @@ public class ObjectControls : MonoBehaviour {
 			//selection_box.min = Input.mousePosition;
 			//selection_box.max = Input.mousePosition;
 			//start_mouse_position = Input.mousePosition;
+			switch(left_click_command) {
+			case -1:
+				break;
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+				unit.spells[left_click_command].Cast();
+				break;
+			case 10:
+				//Attack move
+				if (unit != null) { //Ignore if unit is somehow null
+					Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+					RaycastHit hit;
+
+					if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Level terrain"))) {
+						if (Input.GetKey(KeyCode.LeftShift)
+						 || Input.GetKey(KeyCode.RightShift)) {
+							//Add command to the queue if shift button is held down
+							unit.AddCommand(ObjectCommands.Commands.UNIT_ATTACK_MOVE, hit.point);
+						}
+						else {
+							unit.SetSingleCommand(ObjectCommands.Commands.UNIT_ATTACK_MOVE, hit.point);
+						}
+					}
+				}
+				break;
+			}
+
+			if(!(Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))) left_click_command = -1;
 		}
 		else if (Input.GetMouseButton(0))
 		{
@@ -102,6 +134,36 @@ public class ObjectControls : MonoBehaviour {
 	void	updateKeyboardInputs() {
 		if (Input.GetKeyDown(KeyCode.S)) {
 			unit.StopAllCommands();
+		}
+		else {
+			if(Input.GetKeyDown(KeyCode.A)) {
+				left_click_command = 10;
+			}
+			else if(Input.GetKeyDown(KeyCode.Q)) {
+				if (unit.spells[0].isTargeted())
+					left_click_command = 0;
+				else
+					unit.spells[0].Cast();
+			}
+			else if(Input.GetKeyDown(KeyCode.W)) {
+				if (unit.spells[1].isTargeted())
+					left_click_command = 1;
+				else
+					unit.spells[1].Cast();
+			}
+			else if (Input.GetKeyDown(KeyCode.E)) {
+				if (unit.spells[2].isTargeted())
+					left_click_command = 2;
+				else
+					unit.spells[2].Cast();
+			}
+			else if (Input.GetKeyDown(KeyCode.R)) {
+				if (unit.spells[3].isTargeted())
+					left_click_command = 3;
+				else
+					unit.spells[3].Cast();
+			}
+
 		}
 	}
 }

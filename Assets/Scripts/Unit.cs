@@ -5,7 +5,7 @@ public class Unit : Objects {
 	float			move_speed = 10.0f;
 	NavMeshAgent	agent = null;
 
-	Spell[] spells = new Spell[5];
+	public Spell[]	spells = new Spell[4];
 
 	// Use this for initialization
 	new void	Start () {

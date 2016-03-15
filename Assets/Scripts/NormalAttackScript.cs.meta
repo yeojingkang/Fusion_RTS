@@ -1,11 +1,10 @@
 fileFormatVersion: 2
-guid: bb494f08855a5674a930fb27a46e6f17
-timeCreated: 1458020801
+guid: 0d55187f27cd53d4c89e1a95ae046808
+timeCreated: 1458019100
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences:
-  - normal_attack: {fileID: 112018, guid: 940df66b04b6b5a468dc6b930b1ccc42, type: 2}
+  defaultReferences: []
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

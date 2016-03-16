@@ -5,8 +5,6 @@ using System.Collections.Generic;
 public class ObjectControls : MonoBehaviour {
 	new Camera			camera = null;
 
-	float				hp = 0;
-
 	public Unit			unit = null;
 	public Canvas		canvas = null;
 	Rect				selection_box = new Rect(0, 0, 0, 0);
@@ -43,7 +41,21 @@ public class ObjectControls : MonoBehaviour {
 			case 1:
 			case 2:
 			case 3:
-				unit.spells[left_click_command].Cast();
+				//Cast spell
+				if (unit != null) { //Ignore if unit is somehow null
+					Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+					RaycastHit hit;
+
+					if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Level terrain"))) {
+						if (Input.GetKey(KeyCode.LeftShift)
+						 || Input.GetKey(KeyCode.RightShift)) {
+							unit.AddCommand(ObjectCommands.Commands.UNIT_MOVE_CAST_SPELL, hit.point, null, left_click_command);
+						}
+						else {
+							unit.SetSingleCommand(ObjectCommands.Commands.UNIT_MOVE_CAST_SPELL, hit.point, null, left_click_command);
+						}
+					}
+				}
 				break;
 			case 10:
 				//Attack move
@@ -140,30 +152,37 @@ public class ObjectControls : MonoBehaviour {
 				left_click_command = 10;
 			}
 			else if(Input.GetKeyDown(KeyCode.Q)) {
-				if (unit.spells[0].isTargeted())
-					left_click_command = 0;
+				if (unit.spells[0].isTargeted()) {
+					if(unit.spells[0].isReady())
+						left_click_command = 0;
+				}
 				else
-					unit.spells[0].Cast();
+					unit.spells[0].Cast(unit.transform.position);
 			}
 			else if(Input.GetKeyDown(KeyCode.W)) {
-				if (unit.spells[1].isTargeted())
-					left_click_command = 1;
+				if (unit.spells[1].isTargeted()) {
+					if (unit.spells[1].isReady())
+						left_click_command = 1;
+				}
 				else
-					unit.spells[1].Cast();
+					unit.spells[1].Cast(unit.transform.position);
 			}
 			else if (Input.GetKeyDown(KeyCode.E)) {
-				if (unit.spells[2].isTargeted())
-					left_click_command = 2;
+				if (unit.spells[2].isTargeted()) {
+					if (unit.spells[2].isReady())
+						left_click_command = 2;
+				}
 				else
-					unit.spells[2].Cast();
+					unit.spells[2].Cast(unit.transform.position);
 			}
 			else if (Input.GetKeyDown(KeyCode.R)) {
-				if (unit.spells[3].isTargeted())
-					left_click_command = 3;
+				if (unit.spells[3].isTargeted()) {
+					if (unit.spells[3].isReady())
+						left_click_command = 3;
+				}
 				else
-					unit.spells[3].Cast();
+					unit.spells[3].Cast(unit.transform.position);
 			}
-
 		}
 	}
 }

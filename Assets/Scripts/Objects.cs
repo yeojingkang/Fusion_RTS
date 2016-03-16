@@ -34,16 +34,16 @@ public class Objects : MonoBehaviour {
 	}
 
 	public void	AddCommand(ObjectCommands newCommand) { command_queue.Add(newCommand); }
-	public void	AddCommand(ObjectCommands.Commands type, Vector3 targetPos = default(Vector3), Object targetObject = null) {
-		command_queue.Add(new ObjectCommands(type, targetPos, targetObject));
+	public void	AddCommand(ObjectCommands.Commands type, Vector3 targetPos = default(Vector3), Object targetObject = null, int activatedSpell = -1) {
+		command_queue.Add(new ObjectCommands(type, targetPos, targetObject, activatedSpell));
 	}
 	public void SetSingleCommand(ObjectCommands newCommand) {
 		StopAllCommands();
 		AddCommand(newCommand);
 	}
-	public void SetSingleCommand(ObjectCommands.Commands type, Vector3 targetPos = default(Vector3), Object targetObject = null) {
+	public void SetSingleCommand(ObjectCommands.Commands type, Vector3 targetPos = default(Vector3), Object targetObject = null, int activatedSpell = -1) {
 		StopAllCommands();
-		AddCommand(type, targetPos, targetObject);
+		AddCommand(type, targetPos, targetObject, activatedSpell);
 	}
 	protected void	AddCommandInIndex(int index, ObjectCommands newCommand) { command_queue.Insert(index, newCommand); }
 	protected void	AddCommandInIndex(int index, ObjectCommands.Commands type, Vector3 targetPos = default(Vector3), Object targetObject = null) {

@@ -1006,14 +1006,21 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 475028, guid: c51929e1e90579640947a600aa98c73a, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 11468602, guid: c51929e1e90579640947a600aa98c73a, type: 2}
       propertyPath: m_ipAddressToConnect
       value: 
       objectReference: {fileID: 2079362049}
-    m_RemovedComponents:
-    - {fileID: 11484266, guid: c51929e1e90579640947a600aa98c73a, type: 2}
+    - target: {fileID: 11468602, guid: c51929e1e90579640947a600aa98c73a, type: 2}
+      propertyPath: m_GamePlayerPrefab
+      value: 
+      objectReference: {fileID: 177930, guid: 0d3adc9395195894dafade8c4555e424, type: 2}
+    - target: {fileID: 11468602, guid: c51929e1e90579640947a600aa98c73a, type: 2}
+      propertyPath: m_ShowLobbyGUI
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c51929e1e90579640947a600aa98c73a, type: 2}
   m_IsPrefabParent: 0
 --- !u!224 &281353761 stripped
@@ -1706,6 +1713,17 @@ MonoBehaviour:
       - m_Target: {fileID: 1253332228}
         m_MethodName: SwitchMenu
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1104100703}
+        m_MethodName: StartupClient
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -4100,6 +4118,12 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1055995325}
+--- !u!114 &1104100703 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11468602, guid: c51929e1e90579640947a600aa98c73a,
+    type: 2}
+  m_PrefabInternal: {fileID: 211539405}
+  m_Script: {fileID: 11500000, guid: a82f42bd1fdb0ea49af1df5ea0fddc46, type: 3}
 --- !u!1 &1132233441
 GameObject:
   m_ObjectHideFlags: 0
@@ -5145,6 +5169,17 @@ MonoBehaviour:
       - m_Target: {fileID: 1253332228}
         m_MethodName: SwitchMenu
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1104100703}
+        m_MethodName: StartupHost
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

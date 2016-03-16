@@ -18,6 +18,9 @@ public class Objects : MonoBehaviour {
 	protected List<ObjectCommands>	command_queue = new List<ObjectCommands>();
 	protected ObjectCommands		current_command = new ObjectCommands();
 
+	protected float					updatePositionThreshold;
+	protected float					updateRotationThreshold;
+
 	// Use this for initialization
 	protected void Start () {
 	}
@@ -60,5 +63,22 @@ public class Objects : MonoBehaviour {
 	public void		StopAllCommands() {
 		command_queue.Clear();
 		current_command.Reset();
+	}
+
+	// Update reducer for position and rotation
+	// Check if should update position in server
+	public bool CanUpdatePosition(Vector3 prevPos, Vector3 currPos) {
+		if (Vector3.Distance(currPos, prevPos) > updatePositionThreshold)
+			return true;
+
+		return false;
+	}
+
+	// Check if should update rotation in server
+	public bool CanUpdateRotation(Quaternion prevAngle, Quaternion currAngle) {
+		if (Quaternion.Angle(currAngle, prevAngle) > updateRotationThreshold)
+			return true;
+
+		return false;
 	}
 }

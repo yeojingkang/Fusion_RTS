@@ -8,8 +8,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 475028}
-  - 114: {fileID: 11435088}
-  - 114: {fileID: 11484266}
   - 114: {fileID: 11468602}
   m_Layer: 0
   m_Name: NetworkManager
@@ -30,7 +28,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11435088
+--- !u!114 &11468602
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -38,25 +36,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 177108}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -822479833, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Script: {fileID: 11500000, guid: a82f42bd1fdb0ea49af1df5ea0fddc46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_NetworkPort: 7777
   m_ServerBindToIP: 0
   m_ServerBindAddress: 
   m_NetworkAddress: localhost
-  m_DontDestroyOnLoad: 0
+  m_DontDestroyOnLoad: 1
   m_RunInBackground: 1
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
   m_PlayerPrefab: {fileID: 0}
   m_AutoCreatePlayer: 1
-  m_PlayerSpawnMethod: 1
-  m_OfflineScene: 
+  m_PlayerSpawnMethod: 0
+  m_OfflineScene: Menu
   m_OnlineScene: 
   m_SpawnPrefabs: []
-  m_CustomConfig: 0
+  m_CustomConfig: 1
   m_MaxConnections: 4
   m_ConnectionConfig:
     m_PacketSize: 1500
@@ -65,7 +63,7 @@ MonoBehaviour:
     m_DisconnectTimeout: 2000
     m_ConnectTimeout: 2000
     m_MinUpdateTimeout: 10
-    m_PingTimeout: 500
+    m_PingTimeout: 1000
     m_ReducedPingTimeout: 100
     m_AllCostTimeout: 20
     m_NetworkDropThreshold: 5
@@ -84,7 +82,7 @@ MonoBehaviour:
     m_ReactorMaximumReceivedMessages: 1024
     m_ReactorMaximumSentMessages: 1024
     m_MaxPacketSize: 2000
-  m_Channels: 
+  m_Channels: 0000000005000000
   m_UseWebSockets: 0
   m_UseSimulator: 0
   m_SimulatedLatency: 1
@@ -95,37 +93,30 @@ MonoBehaviour:
   matchMaker: {fileID: 0}
   matchName: default
   matchSize: 4
---- !u!114 &11468602
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 177108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a82f42bd1fdb0ea49af1df5ea0fddc46, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_ShowLobbyGUI: 0
+  m_MaxPlayers: 4
+  m_MaxPlayersPerConnection: 1
+  m_MinPlayers: 2
+  m_LobbyPlayerPrefab: {fileID: 11497376, guid: 7136976a7a79fcd48a6acf00380738f3,
+    type: 2}
+  m_GamePlayerPrefab: {fileID: 177930, guid: 0d3adc9395195894dafade8c4555e424, type: 2}
+  m_LobbyScene: Menu
+  m_PlayScene: level
+  lobbySlots: []
+  m_networkPort: 7777
+  m_numPlayers: 0
+  m_startGameCountdown: 3
   m_pingRefreshRate: 2
   m_panelSizeMinification: 0.2
   m_connectionStatus: {fileID: 0}
   m_ipAddressToPing: 
   m_ipAddressToConnect: {fileID: 0}
---- !u!114 &11484266
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 177108}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 227461547, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  showGUI: 1
-  offsetX: 0
-  offsetY: 0
+  m_networkLobbyPlayerPrefab:
+  - {fileID: 11497376, guid: 7136976a7a79fcd48a6acf00380738f3, type: 2}
+  - {fileID: 11490958, guid: 13cf196c1e10dd541a46a6105890e7dc, type: 2}
+  m_networkIdentityPlayerPrefab:
+  - {fileID: 11407876, guid: 0d3adc9395195894dafade8c4555e424, type: 2}
+  - {fileID: 11407876, guid: 0d3adc9395195894dafade8c4555e424, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

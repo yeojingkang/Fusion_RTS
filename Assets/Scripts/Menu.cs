@@ -73,7 +73,7 @@ public class Menu : MonoBehaviour {
             case MenuType.StartedGame:
                 RoomMenu.SetActive(false);
 				//Application.LoadLevel(1);	// DEPRECATED
-				SceneManager.LoadScene(1);	// NEW API
+				//SceneManager.LoadScene(1);	// NEW API
                 break;
         }
 

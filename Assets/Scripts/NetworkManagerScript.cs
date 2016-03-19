@@ -9,7 +9,7 @@ public enum PlayerTeam {
 };
 
 public class NetworkManagerScript : NetworkLobbyManager {
-
+	static public NetworkManagerScript s_Singleton;
 	public int				m_networkPort;
 	public int				m_numPlayers;
 	public int				m_startGameCountdown;
@@ -17,11 +17,13 @@ public class NetworkManagerScript : NetworkLobbyManager {
 	public float			m_panelSizeMinification;
 	public Text				m_connectionStatus;
 	public string			m_ipAddressToPing;
+	public string			m_playerName;
 	public InputField		m_ipAddressToConnect;
-	public NetworkLobbyPlayer[]	m_networkLobbyPlayerPrefab;
-	public NetworkIdentity[]	m_networkIdentityPlayerPrefab;
+	public InputField		m_nameInputField;
 
 	void Start () {
+		s_Singleton = this;
+
 		if (m_networkPort == 0)
 			m_networkPort = 1234;
 
@@ -30,6 +32,8 @@ public class NetworkManagerScript : NetworkLobbyManager {
 		// If no word is entered in editor, set ip address to Google
 		if (m_ipAddressToPing.Length == 0)
 			m_ipAddressToPing = "74.125.130.102";
+
+		DontDestroyOnLoad(gameObject);
 	}
 
 	public void StartupHost() {
@@ -75,6 +79,14 @@ public class NetworkManagerScript : NetworkLobbyManager {
 		m_numPlayers--;
 	}
 
+	public void AddLocalPlayer() {
+		
+	}
+
+	public void RemovePlayer(NetworkLobbyPlayer player) {
+		player.RemovePlayer();
+	}
+
 	// TODO: after all the UI is done, setup this
 	void OnLevelWasLoaded( int level ) {
 		if ( level == 0 ) 
@@ -91,6 +103,10 @@ public class NetworkManagerScript : NetworkLobbyManager {
 	
 	}
 
+	public void OnPressStartGame() {
+		m_playerName = m_nameInputField.text;
+	}
+
 	public bool GameStartCountdown() {
 		float timer = (float)m_startGameCountdown - Time.deltaTime;
 		if ( timer <= 0.0f )
@@ -98,4 +114,18 @@ public class NetworkManagerScript : NetworkLobbyManager {
 
 		return false;
 	}
+
+	public void OnPlayersNumberModified( int count ) {
+		m_numPlayers += count;
+	}
+
+	public override GameObject OnLobbyServerCreateLobbyPlayer(NetworkConnection conn, short playerId) {
+		//GameObject obj = Instantiate( m_networkLobbyPlayerPrefab ) as GameObject;
+
+
+
+		return null;
+	}
+
+
 }

@@ -22,7 +22,9 @@ public class Menu : MonoBehaviour {
     public InputField Namespace;
 
     bool isHost = false;
+
     MenuType CurrentMenu = MenuType.MainMenu;
+
     void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
@@ -42,6 +44,7 @@ public class Menu : MonoBehaviour {
                 if(!string.IsNullOrEmpty(Namespace.text))
                 {
                     CurrentMenu++;
+                    PlayerPrefs.SetString("Name", Namespace.text);
                 }
 
             }
@@ -80,8 +83,6 @@ public class Menu : MonoBehaviour {
         Debug.Log(CurrentMenu);
     }
 
-    
-
     string TestIP()
     {
         return Network.player.ipAddress;
@@ -92,5 +93,4 @@ public class Menu : MonoBehaviour {
         OptionsMenu.SetActive(!OptionsMenu.activeSelf);
     }
 
-    
 }

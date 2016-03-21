@@ -1,25 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Spell : MonoBehaviour {
+public class Spell {
 	public enum SpellType {
 		SPELL_NONE = 0,
 		SPELL_NORMAL_ATTACK
 	}
 
-	GameObject spell = (GameObject)Resources.Load("Spells/Normal_Attack");
+	GameObject spell = null;
 
 	SpellType	type = SpellType.SPELL_NONE;
 	float		ori_cooldown = 0.0f;
 	float		cooldown = 0.0f;
 	float		cast_range = 0.0f;
 	bool		mustBeTargeted = false;
-
-	// Use this for initialization
-	void Start () {
-	}
-
-	// Update is called once per frame
+	
 	public void Update () {
 		if (cooldown > 0.0f)
 			cooldown -= Time.deltaTime;
@@ -53,7 +48,7 @@ public class Spell : MonoBehaviour {
 			break;
 
 		case SpellType.SPELL_NORMAL_ATTACK:
-			Instantiate(spell, position + forward * 1.5f, rotation);
+			GameObject.Instantiate(spell, position + forward * 1.5f, rotation);
 			break;
 		}
 

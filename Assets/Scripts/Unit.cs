@@ -7,13 +7,14 @@ public class Unit : Objects {
 
 	public Spell[]	spells = new Spell[4];
 
+	float			hp = 100;
+
 	// Use this for initialization
 	new void	Start () {
 		type = ObjectType.OBJECT_TYPE_UNIT;
 
 		for (int i = 0; i < spells.Length; ++i)
-			//spells[i] = new Spell();
-			spells[i] = gameObject.AddComponent<Spell>();
+			spells[i] = new Spell();
 
 		spells[0].Init(Spell.SpellType.SPELL_NORMAL_ATTACK);
 
@@ -32,6 +33,9 @@ public class Unit : Objects {
 
 		base.Update();
 		DoCurrentCommand();
+
+		foreach (Spell spell in spells)
+			spell.Update();
 	}
 
 	void	DoCurrentCommand() {
@@ -115,6 +119,14 @@ public class Unit : Objects {
 				agent.updateRotation = true;
 				GetNextCommand();
 			}
+		}
+	}
+
+	public void	Damage(float dmg) {
+		hp -= dmg;
+
+		if(hp <= 0) {
+			//Die
 		}
 	}
 }

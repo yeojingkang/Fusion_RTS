@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections;
 
 public class CameraControls : MonoBehaviour {
@@ -16,6 +18,17 @@ public class CameraControls : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Cursor.lockState = CursorLockMode.Confined;
+
+		if (File.Exists(Application.persistentDataPath + "/Options.fusion")) {
+			BinaryFormatter bf = new BinaryFormatter();
+			FileStream file = File.Open(Application.persistentDataPath + "/Options.fusion", FileMode.Open);
+			Options OptionData = (Options)bf.Deserialize(file);
+			file.Close();
+
+			keyboard_speed = OptionData.ScrollingSense;
+			mouse_drag_speed = OptionData.ScrollingSense;
+			mouse_speed = OptionData.EdgeScrollingSense;
+		}
 	}
 	
 	// Update is called once per frame

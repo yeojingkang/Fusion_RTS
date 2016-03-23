@@ -4,7 +4,10 @@ using System.Collections;
 public class Spell {
 	public enum SpellType {
 		SPELL_NONE = 0,
-		SPELL_NORMAL_ATTACK
+		SPELL_NORMAL_ATTACK = 1,
+        SPELL_ACTIVE_OFFENCE = 2,
+        SPELL_ACTIVE_DEFENSE = 3,
+        SPELL_PASSIVE = 4
 	}
 
 	GameObject spell = null;
@@ -14,13 +17,18 @@ public class Spell {
 	float		cooldown = 0.0f;
 	float		cast_range = 0.0f;
 	bool		mustBeTargeted = false;
-	
-	public void Update () {
-		if (cooldown > 0.0f)
-			cooldown -= Time.deltaTime;
+    int         level = 0;
+    int         max_level = 3;
 
-		if (cooldown < 0.0f)
-			cooldown = 0.0f;
+	public void Update () {
+        if (type != SpellType.SPELL_PASSIVE)
+        {
+            if (cooldown > 0.0f)
+                cooldown -= Time.deltaTime;
+
+            if (cooldown < 0.0f)
+                cooldown = 0.0f;
+        }
 	}
 
 	public void Init(SpellType newType) {

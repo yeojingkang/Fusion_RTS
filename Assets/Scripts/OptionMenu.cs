@@ -189,6 +189,8 @@ public class OptionMenu : MonoBehaviour {
                 AudioTab.SetActive(true);
                 ControlsTab.SetActive(false);
 
+                LoadOptions();
+
                 BGMSlider.transform.parent.GetChild(2).GetComponent<InputField>().text = 
                     BGMSlider.GetComponent<Slider>().value.ToString();
 
@@ -200,8 +202,11 @@ public class OptionMenu : MonoBehaviour {
                 AudioTab.SetActive(false);
                 ControlsTab.SetActive(true);
 
+                LoadOptions();
+
                 EdgeScrollingSense.transform.parent.GetChild(2).GetComponent<InputField>().text =
                     EdgeScrollingSense.GetComponent<Slider>().value.ToString();
+
                 ScrollingSense.transform.parent.GetChild(2).GetComponent<InputField>().text =
                     ScrollingSense.GetComponent<Slider>().value.ToString();
                

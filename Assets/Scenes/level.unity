@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_speedLimit: 5
-  m_pushSpeed: 100
+  m_pushSpeed: 50
   m_slowSpeed: 30
   m_stopThreshold: 0.1
 --- !u!1001 &241174924

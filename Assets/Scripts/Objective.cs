@@ -38,34 +38,27 @@ public class Objective : MonoBehaviour
 			//Normalize the resultant directional vector
 			dirVector = dirVector.normalized * m_pushSpeed * Time.deltaTime;
 
+			m_rigidbody.AddForce (dirVector);
+
 			//Check if adding the current force will result in the magnitude reaching the top speed
-			if (m_rigidbody.velocity.magnitude + dirVector.magnitude > m_speedLimit) 
+			if (m_rigidbody.velocity.magnitude > m_speedLimit) 
 			{
 				m_rigidbody.velocity = m_rigidbody.velocity.normalized * m_speedLimit;
 			} 
-
-			else 
-			{
-				//Adds a force based on the resultant directional vector
-				m_rigidbody.AddForce (dirVector);
-			}
 		}
 
 		else 
 		{
 			dirVector = -m_rigidbody.velocity.normalized * m_slowSpeed * Time.deltaTime;
 
+			//Adds a force based on the resultant directional vector
+			m_rigidbody.AddForce (dirVector);
+
 			//Check if adding the current force will result in the magnitude reaching 0 velocity
-			if (m_rigidbody.velocity.magnitude + dirVector.magnitude < m_stopThreshold) 
+			if (m_rigidbody.velocity.magnitude < m_stopThreshold) 
 			{
 				m_rigidbody.velocity = Vector3.zero;
 			} 
-
-			else
-			{
-				//Adds a force based on the resultant directional vector
-				m_rigidbody.AddForce (dirVector);
-			}
 		}
 	}
 }

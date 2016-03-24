@@ -5,9 +5,9 @@ public class Spell {
 	public enum SpellType {
 		SPELL_NONE = 0,
 		SPELL_NORMAL_ATTACK = 1,
-        SPELL_ACTIVE_OFFENCE = 2,
-        SPELL_ACTIVE_DEFENSE = 3,
-        SPELL_PASSIVE = 4
+		SPELL_ACTIVE_OFFENCE = 2,
+		SPELL_ACTIVE_DEFENSE = 3,
+		SPELL_PASSIVE = 4
 	}
 
 	GameObject spell = null;
@@ -17,22 +17,23 @@ public class Spell {
 	float		cooldown = 0.0f;
 	float		cast_range = 0.0f;
 	bool		mustBeTargeted = false;
-    int         level = 0;
-    int         max_level = 3;
+	int			level = 0;
+	int			max_level = 3;
 
 	public void Update () {
-        if (type != SpellType.SPELL_PASSIVE)
-        {
-            if (cooldown > 0.0f)
-                cooldown -= Time.deltaTime;
+		if (type != SpellType.SPELL_PASSIVE)
+		{
+			if (cooldown > 0.0f)
+				cooldown -= Time.deltaTime;
 
-            if (cooldown < 0.0f)
-                cooldown = 0.0f;
-        }
+			if (cooldown < 0.0f)
+				cooldown = 0.0f;
+		}
 	}
 
 	public void Init(SpellType newType) {
 		type = newType;
+		cooldown = 0.0f;
 
 		switch(type) {
 		case SpellType.SPELL_NONE:

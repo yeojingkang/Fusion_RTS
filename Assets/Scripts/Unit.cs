@@ -7,7 +7,15 @@ public class Unit : Objects {
 
 	public Spell[]	spells = new Spell[4];
 
-	float			hp = 100;
+	float			hp = 0;
+	float			max_hp = 100;
+
+	bool			dead = false;
+
+	Vector3			spawn_position = Vector3.zero;
+	Vector3			spawn_forward = new Vector3(0,0,1);
+	float			curr_respawn_timer = 0.0f;
+	float			ori_respawn_timer = 5.0f;
 
 	// Use this for initialization
 	new void	Start () {
@@ -16,14 +24,17 @@ public class Unit : Objects {
 		for (int i = 0; i < spells.Length; ++i)
 			spells[i] = new Spell();
 
+		//Temp. code (can be permanent if wanted)
 		spells[0].Init(Spell.SpellType.SPELL_NORMAL_ATTACK);
 
+		//Init navMeshAgent params
 		agent = GetComponent<NavMeshAgent>();
 		agent.speed = move_speed;
 		agent.acceleration = 9999.0f;
 		agent.stoppingDistance = 0.5f;
 		agent.updateRotation = true;
-		agent.updatePosition = true;
+
+		Respawn();
 	}
 
 	// Update is called once per frame
@@ -31,11 +42,25 @@ public class Unit : Objects {
 		//if (!isLocalPlayer)
 		//	return;
 
-		base.Update();
-		DoCurrentCommand();
+		if(dead) {
+			UpdateRespawnTimer();
+		}
+		else {
+			base.Update();
+			DoCurrentCommand();
+		}
 
+		//Update spell cooldowns even while unit is dead
 		foreach (Spell spell in spells)
 			spell.Update();
+	}
+
+	void	UpdateRespawnTimer() {
+		curr_respawn_timer -= Time.deltaTime;
+
+		if(curr_respawn_timer <= 0.0f) {
+			Respawn();
+		}
 	}
 
 	void	DoCurrentCommand() {
@@ -122,11 +147,50 @@ public class Unit : Objects {
 		}
 	}
 
-	public void	Damage(float dmg) {
+	void	Die() {
+		dead = true;
+		curr_respawn_timer = ori_respawn_timer;
+
+		agent.Stop();
+		StopAllCommands();
+
+		SetComponentsActive(false);
+	}
+	void	Respawn() {
+		dead = false;
+		hp = max_hp;
+		transform.position = spawn_position;
+		transform.forward = spawn_forward;
+
+		SetComponentsActive(true);
+
+		agent.Stop();
+		StopAllCommands();
+	}
+	//Sets all components except this script in the gameobject active/inactive
+	void	SetComponentsActive(bool active) {
+		MonoBehaviour[] comps = GetComponents<MonoBehaviour>();
+
+		foreach (MonoBehaviour comp in comps) {
+			if (comp != this)
+				comp.enabled = active;
+		}
+
+		GetComponent<Renderer>().enabled = active;
+		GetComponent<Collider>().enabled = active;
+		agent.enabled = active;
+	}
+
+	//Public functions
+	/////////////////////////////////////////////////////////////////////////////////////////
+
+	public void Damage(float dmg) {
 		hp -= dmg;
 
-		if(hp <= 0) {
-			//Die
+		if (hp <= 0) {
+			Die();
 		}
 	}
+	public void	setSpawnPosition(Vector3 newSpawnPos) { spawn_position = newSpawnPos; }
+
 }

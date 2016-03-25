@@ -125,7 +125,7 @@ public class ObjectControls : MonoBehaviour {
 	}
 	void	updateRightClickInputs() {
 		if (Input.GetMouseButtonDown(1)) {
-			if(unit != null) {  //Ignore if unit is somehow null
+			if (unit != null) {  //Ignore if unit is somehow null
 				left_click_command = -1;
 
 				Ray ray = camera.ScreenPointToRay(Input.mousePosition);

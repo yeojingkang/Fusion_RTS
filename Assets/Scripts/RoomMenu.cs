@@ -19,6 +19,9 @@ public class RoomMenu : MonoBehaviour {
 
     void Update()
     {
+		if (!playerTag)
+			return;
+
         playerTag.GetComponentInChildren<Text>().text = PlayerPrefs.GetString("Name");
     }
 

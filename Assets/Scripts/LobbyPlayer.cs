@@ -4,103 +4,149 @@ using UnityEngine.Networking;
 using System.Collections;
 using System.Collections.Generic;
 
-public class LobbyPlayer : NetworkLobbyPlayer {
-	static Color[] m_teamColors = new Color[] { Color.blue, Color.red };
+namespace CustomLobbyNetwork {
+	public class LobbyPlayer : NetworkLobbyPlayer {
+		public bool			m_playerReady;
 
-	public Button 		m_switchTeamButton;
-	public Button		m_readyButton;
-	public Button		m_waitButton;
-	public Button		m_removePlayerButton;
+		public Button 		m_switchTeamButton;
+		public Button		m_lobbyBackButton;
 
-	[SyncVar(hook = "OnMyName")]
-	public string	m_playerName;
-	[SyncVar(hook = "OnMyColor")]
-	public Color	m_playerColor;
+		[SyncVar(hook = "OnMyName")]
+		public string	m_playerName;
+		[SyncVar(hook = "OnMyTeam")]
+		public int		m_team;
 
-	public override void OnClientEnterLobby() {
-		base.OnClientEnterLobby();
+		public Transform	m_currentTeam;
 
-		if( NetworkManagerScript.s_Singleton != null )
-			NetworkManagerScript.s_Singleton.OnPlayersNumberModified(1);
+		Transform		m_teamCube_1;
+		Transform		m_teamCube_2;
 
-		if ( isLocalPlayer ) 
-			SetupLocalPlayer();
-		else
-			SetupNetworkPlayer();
+		void Awake() {
+			m_teamCube_1 = GameObject.Find("Triangles").transform.GetComponentInChildren<GridLayoutGroup>().transform;
+			m_teamCube_2 = GameObject.Find("Cubes").transform.GetComponentInChildren<GridLayoutGroup>().transform;
+		
+			transform.parent = m_currentTeam;
+		}
 
-		OnMyName( m_playerName );
-		OnMyColor( m_playerColor );
+		void Update() {
+			m_currentTeam = ( m_team == 1 ) ? m_teamCube_1 : m_teamCube_2;
+			transform.parent = m_currentTeam;
 
-		// Team assignment
-		if ( NetworkManagerScript.s_Singleton.m_numPlayers % 2 == 0 )
-			transform.parent = GameObject.Find("Triangles").transform.GetComponentInChildren<GridLayoutGroup>().transform;
-		else
-			transform.parent = GameObject.Find("Cubes").transform.GetComponentInChildren<GridLayoutGroup>().transform;
-	}
+			// Gotta do it this way to make the name displaying correctly on both sides
+			GetComponentInChildren<Text>().text = m_playerName;
+		}
 
-	public override void OnStartAuthority() {
-		base.OnStartAuthority();
+		public override void OnClientEnterLobby() {
+			base.OnClientEnterLobby();
 
-		SetupLocalPlayer();
-	}
-
-	void SetupLocalPlayer() {
-		CheckRemoveButton();
-
-		CmdNameChange( NetworkManagerScript.s_Singleton.m_playerName );
-		GetComponentInChildren<Text>().text = m_playerName;
-
-		CmdColorChange();
-	}
-
-	void SetupNetworkPlayer() {
-		OnClientReady( false );
-	}
-
-	public void CheckRemoveButton() {
-		if ( !isLocalPlayer )
-			return;
-
-		int playerCount = 0;
-		foreach( PlayerController p in ClientScene.localPlayers )
-			playerCount += ( p == null || p.playerControllerId == -1 ) ? 0 : 1;
-	}
-
-	public override void OnClientReady( bool readyState ) {
-		// TODO: all the UI display stuffs here when client is ready
-		if ( readyState ) {
+			if( CustomLobbyNetwork.NetworkManagerScript.s_Singleton != null )
+				CustomLobbyNetwork.NetworkManagerScript.s_Singleton.OnPlayersNumberModified(1);
 			
+			if ( isLocalPlayer ) 
+				SetupLocalPlayer();
+			else
+				SetupNetworkPlayer();
+
+			OnMyName( m_playerName );
+			OnMyTeam( m_team );
+
+			// Team assignment
+			//if ( NetworkManagerScript.s_Singleton.m_numPlayers % 2 == 0 )
+			//	transform.parent = m_teamCube_1;
+			//else
+			//	transform.parent = m_teamCube_2;
+
+			m_team = ( CustomLobbyNetwork.NetworkManagerScript.s_Singleton.m_numPlayers % 2 == 0 ) ? 1 : 2;
+			m_currentTeam = ( m_team == 1 ) ? m_teamCube_1 : m_teamCube_2;
+			transform.parent = m_currentTeam;
 		}
-		else {
-		
+
+		public override void OnStartAuthority() {
+			base.OnStartAuthority();
+
+			SetupLocalPlayer();
 		}
-	}
 
-	public void OnMyName( string newName ) { m_playerName = newName; }
-	public void OnMyColor( Color newColor ) { m_playerColor = newColor; }
+		void SetupLocalPlayer() {
+			GetComponentInChildren<Text>().text = m_playerName;
+			CmdNameChange( CustomLobbyNetwork.NetworkManagerScript.s_Singleton.m_playerName );
+			GetComponent<Image>().color = Color.red;
 
-	public void OnRemovePlayerClick() {
-		if ( !isLocalPlayer )
-			return;
+			SetupRoomButtons();
 
-		RemovePlayer();
-	}
+			//CmdTeamChange();
+		}
 
-	[ClientRpc]
-	public void RpcUpdateCountdown( int countdown ) {
-		// TODO: do network lobby manager countdown text
-	}
+		void SetupNetworkPlayer() {
+			OnClientReady( false );
+		}
 
-	[ClientRpc]
-	public void RpcUpdateRemoveButton() { CheckRemoveButton(); }
+		void SetupRoomButtons() {
+			m_switchTeamButton = GameObject.Find("SwitchSides_Button").GetComponent<Button>();
+			if ( !m_switchTeamButton )
+				Debug.Log("Switch team button initialization failed!");
 
-	[Command]
-	public void CmdNameChange(string name) {
-		m_playerName = name;
-	}
+			m_switchTeamButton.onClick.RemoveAllListeners();
+			m_switchTeamButton.onClick.AddListener(SwitchTeams);
 
-	[Command]
-	public void CmdColorChange() {
-		
+			m_lobbyBackButton = GameObject.Find("RoomMenu").transform.FindChild("Back Button").GetComponent<Button>();
+			if ( !m_lobbyBackButton )
+				Debug.Log("Back button initialization failed!");
+
+			m_lobbyBackButton.onClick.RemoveListener(OnRemovePlayerClick);
+			m_lobbyBackButton.onClick.AddListener(OnRemovePlayerClick);
+		}
+
+		void SwitchTeams() {
+			//m_team = ( m_team != 1 ) ? 1 : 2;
+			//m_currentTeam = ( m_team == 1 ) ? m_teamCube_1 : m_teamCube_2;
+			//transform.parent = m_currentTeam;
+			CmdTeamChange();
+		}
+
+		public override void OnClientReady( bool readyState ) {
+			// TODO: all the UI display stuffs here when client is ready
+			if ( readyState ) {
+				m_playerReady = true;
+			}
+			else {
+				m_playerReady = false;
+			}
+		}
+
+		public void OnMyName( string newName ) { m_playerName = newName; }
+		public void OnMyTeam( int team ) { m_team = team; }
+
+		public void OnRemovePlayerClick() {
+			if ( !isLocalPlayer )
+				return;
+
+			RemovePlayer();
+		}
+
+		[ClientRpc]
+		public void RpcUpdateCountdown( int countdown ) {
+			// TODO: do network lobby manager countdown text
+		}
+
+		[ClientRpc]
+		public void RpcUpdateSwitchTeamButton() { SetupRoomButtons(); }
+
+		[Command]
+		public void CmdNameChange(string name) {
+			m_playerName = name;
+			GetComponentInChildren<Text>().text = m_playerName;
+		}
+
+		[Command]
+		public void CmdTeamChange() {
+			m_team = ( m_team != 1 ) ? 1 : 2;
+		}
+
+		public void OnDestroy() {
+
+			if ( CustomLobbyNetwork.NetworkManagerScript.s_Singleton != null )
+				CustomLobbyNetwork.NetworkManagerScript.s_Singleton.OnPlayersNumberModified(-1);
+		}
 	}
 }

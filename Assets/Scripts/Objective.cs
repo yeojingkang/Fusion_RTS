@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class Objective : MonoBehaviour 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(NetworkTransform))]
+public class Objective : NetworkBehaviour 
 {
 	public float m_speedLimit = 0;
 	public float m_pushSpeed = 0;
@@ -11,14 +14,19 @@ public class Objective : MonoBehaviour
 	private Rigidbody m_rigidbody = null;
 	private ObjectiveTrigger m_unitDetection = null;
 
+	protected NetworkTransform m_netTransform;
+
 	// Use this for initialization
 	void Start () 
 	{
 		m_rigidbody = this.GetComponent<Rigidbody> ();
 		m_unitDetection = this.transform.GetComponentInChildren<ObjectiveTrigger> ();
+
+		m_netTransform = GetComponent<NetworkTransform>();
 	}
 	
 	// Update is called once per frame
+	[ServerCallback]
 	void Update () 
 	{
 		Vector3 currentPos = this.transform.position;

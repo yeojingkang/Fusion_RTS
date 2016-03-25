@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 475028}
   - 114: {fileID: 11468602}
+  - 114: {fileID: 11430562}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -28,6 +29,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11430562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33da41375cd8d4c46bd08ef21772dbb8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11468602
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -50,10 +62,11 @@ MonoBehaviour:
   m_LogLevel: 2
   m_PlayerPrefab: {fileID: 0}
   m_AutoCreatePlayer: 1
-  m_PlayerSpawnMethod: 0
+  m_PlayerSpawnMethod: 1
   m_OfflineScene: Menu
   m_OnlineScene: 
-  m_SpawnPrefabs: []
+  m_SpawnPrefabs:
+  - {fileID: 198874, guid: 2faa0bccd19b71e46a9c0e4f636f1838, type: 2}
   m_CustomConfig: 1
   m_MaxConnections: 4
   m_ConnectionConfig:
@@ -97,7 +110,7 @@ MonoBehaviour:
   m_MaxPlayers: 4
   m_MaxPlayersPerConnection: 1
   m_MinPlayers: 2
-  m_LobbyPlayerPrefab: {fileID: 11497376, guid: 7136976a7a79fcd48a6acf00380738f3,
+  m_LobbyPlayerPrefab: {fileID: 11469784, guid: 174bd7b499942ea4cbf8132b0788d21d,
     type: 2}
   m_GamePlayerPrefab: {fileID: 177930, guid: 0d3adc9395195894dafade8c4555e424, type: 2}
   m_LobbyScene: Menu
@@ -110,13 +123,10 @@ MonoBehaviour:
   m_panelSizeMinification: 0.2
   m_connectionStatus: {fileID: 0}
   m_ipAddressToPing: 
+  m_playerName: 
   m_ipAddressToConnect: {fileID: 0}
-  m_networkLobbyPlayerPrefab:
-  - {fileID: 11497376, guid: 7136976a7a79fcd48a6acf00380738f3, type: 2}
-  - {fileID: 11490958, guid: 13cf196c1e10dd541a46a6105890e7dc, type: 2}
-  m_networkIdentityPlayerPrefab:
-  - {fileID: 11407876, guid: 0d3adc9395195894dafade8c4555e424, type: 2}
-  - {fileID: 11407876, guid: 0d3adc9395195894dafade8c4555e424, type: 2}
+  m_nameInputField: {fileID: 0}
+  m_backButton: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

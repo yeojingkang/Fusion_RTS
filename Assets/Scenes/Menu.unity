@@ -917,10 +917,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11468602, guid: c51929e1e90579640947a600aa98c73a, type: 2}
-      propertyPath: m_SpawnPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 475028, guid: c51929e1e90579640947a600aa98c73a, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -962,18 +958,9 @@ Prefab:
       value: 
       objectReference: {fileID: 832370393}
     - target: {fileID: 11468602, guid: c51929e1e90579640947a600aa98c73a, type: 2}
-      propertyPath: m_LobbyPlayerPrefab
+      propertyPath: m_menuCanvas
       value: 
-      objectReference: {fileID: 11469784, guid: 174bd7b499942ea4cbf8132b0788d21d,
-        type: 2}
-    - target: {fileID: 11468602, guid: c51929e1e90579640947a600aa98c73a, type: 2}
-      propertyPath: m_SpawnPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 198874, guid: 2faa0bccd19b71e46a9c0e4f636f1838, type: 2}
-    - target: {fileID: 11468602, guid: c51929e1e90579640947a600aa98c73a, type: 2}
-      propertyPath: m_PlayerSpawnMethod
-      value: 1
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1253332223}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c51929e1e90579640947a600aa98c73a, type: 2}
   m_IsPrefabParent: 0
@@ -2161,21 +2148,6 @@ CanvasRenderer:
 GameObject:
   m_PrefabParentObject: {fileID: 121880, guid: 7216e59c1ef72524d8ab026c4563d19b, type: 2}
   m_PrefabInternal: {fileID: 1683611832}
---- !u!1 &649467688 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 177108, guid: c51929e1e90579640947a600aa98c73a, type: 2}
-  m_PrefabInternal: {fileID: 211539405}
---- !u!114 &649467690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 649467688}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33da41375cd8d4c46bd08ef21772dbb8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &682501693
 Prefab:
   m_ObjectHideFlags: 0
@@ -5156,7 +5128,7 @@ GameObject:
   - 114: {fileID: 1399156322}
   - 114: {fileID: 1399156321}
   m_Layer: 5
-  m_Name: Start Game BUtton
+  m_Name: Start Game Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5220,18 +5192,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1399156322}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1253332228}
-        m_MethodName: SwitchMenu
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1399156322

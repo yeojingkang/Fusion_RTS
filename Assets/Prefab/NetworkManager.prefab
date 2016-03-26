@@ -60,7 +60,7 @@ MonoBehaviour:
   m_ScriptCRCCheck: 1
   m_MaxDelay: 0.01
   m_LogLevel: 2
-  m_PlayerPrefab: {fileID: 0}
+  m_PlayerPrefab: {fileID: 177930, guid: 0d3adc9395195894dafade8c4555e424, type: 2}
   m_AutoCreatePlayer: 1
   m_PlayerSpawnMethod: 1
   m_OfflineScene: Menu
@@ -127,6 +127,7 @@ MonoBehaviour:
   m_ipAddressToConnect: {fileID: 0}
   m_nameInputField: {fileID: 0}
   m_backButton: {fileID: 0}
+  m_menuCanvas: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

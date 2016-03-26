@@ -39,7 +39,7 @@ public class OptionMenu : MonoBehaviour {
 
     void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);
+        //DontDestroyOnLoad(transform.gameObject);
         LoadOptions();
 
     }

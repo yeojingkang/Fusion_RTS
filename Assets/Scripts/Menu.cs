@@ -29,9 +29,9 @@ public class Menu : MonoBehaviour {
     {
         DontDestroyOnLoad(transform.gameObject);
     }
+
     void Start()
     {
-       
         playerIP.text = "IP Address: "+TestIP();
     }
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Spell {
+public class Spell: MonoBehaviour {
 	public enum SpellType {
 		SPELL_NONE = 0,
 		SPELL_NORMAL_ATTACK = 1,
@@ -12,13 +12,15 @@ public class Spell {
 
 	GameObject spell = null;
 
-	SpellType	type = SpellType.SPELL_NONE;
-	float		ori_cooldown = 0.0f;
+	public SpellType	type = SpellType.SPELL_NONE;
+
+    public float ori_cooldown = 0.0f;
 	float		cooldown = 0.0f;
-	float		cast_range = 0.0f;
-	bool		mustBeTargeted = false;
-	int			level = 0;
-	int			max_level = 3;
+    public float cast_range = 0.0f;
+    public bool mustBeTargeted = false;
+
+    public int level = 0;
+    public int max_level = 3;
 
 	public void Update () {
 		if (type != SpellType.SPELL_PASSIVE)
@@ -47,23 +49,28 @@ public class Spell {
 			break;
 		}
 	}
+    public void Cast(Vector3 position, Vector3 forward = default(Vector3), Quaternion rotation = default(Quaternion)) 
+    {
 
-	public bool Cast(Vector3 position, Vector3 forward = default(Vector3), Quaternion rotation = default(Quaternion)) {
-		if (cooldown > 0.0f)
-			return false;
+    }
+    //public bool Cast(Vector3 position, Vector3 forward = default(Vector3), Quaternion rotation = default(Quaternion))
+    //{
+    //    if (cooldown > 0.0f)
+    //        return false;
 
-		switch(type) {
-		case SpellType.SPELL_NONE:
-			break;
+    //    switch (type)
+    //    {
+    //        case SpellType.SPELL_NONE:
+    //            break;
 
-		case SpellType.SPELL_NORMAL_ATTACK:
-			GameObject.Instantiate(spell, position + forward * 1.5f, rotation);
-			break;
-		}
+    //        case SpellType.SPELL_NORMAL_ATTACK:
+    //            GameObject.Instantiate(spell, position + forward * 1.5f, rotation);
+    //            break;
+    //    }
 
-		cooldown = ori_cooldown;
-		return true;
-	}
+    //    cooldown = ori_cooldown;
+    //    return true;
+    //}
 
 	public float	getCooldown() { return cooldown; }
 	public bool		isReady() { return cooldown <= 0.0f; }

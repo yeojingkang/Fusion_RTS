@@ -22,7 +22,7 @@ public class Unit : Objects {
 		type = ObjectType.OBJECT_TYPE_UNIT;
 
 		for (int i = 0; i < spells.Length; ++i)
-			spells[i] = new Spell();
+			spells[i] = new Spell(this);
 
 		//Temp. code (can be permanent if wanted)
 		spells[0].Init(Spell.SpellType.SPELL_NORMAL_ATTACK);
@@ -184,7 +184,7 @@ public class Unit : Objects {
 	//Public functions
 	/////////////////////////////////////////////////////////////////////////////////////////
 
-	public void Damage(float dmg) {
+	public void	Damage(float dmg) {
 		hp -= dmg;
 
 		if (hp <= 0) {
@@ -192,5 +192,5 @@ public class Unit : Objects {
 		}
 	}
 	public void	setSpawnPosition(Vector3 newSpawnPos) { spawn_position = newSpawnPos; }
-
+	public bool	isDead() { return dead; }
 }

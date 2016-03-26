@@ -30,13 +30,14 @@ public class Objective : MonoBehaviour
 			foreach (Transform obj in m_unitDetection.m_unitList) 
 			{
 				//Determine the push vector for each unit
-				Vector3 direction = (currentPos - obj.position).normalized;
+				Vector3 direction = (currentPos - obj.position).normalized; //multiply the unique pushing force here, start 1 as normal pushing force
 
-				dirVector += direction;
+				//dirVector += direction;
+				dirVector += direction * m_pushSpeed * Time.deltaTime;
 			}
 
 			//Normalize the resultant directional vector
-			dirVector = dirVector.normalized * m_pushSpeed * Time.deltaTime;
+			//dirVector = dirVector.normalized * m_pushSpeed * Time.deltaTime;
 
 			m_rigidbody.AddForce (dirVector);
 

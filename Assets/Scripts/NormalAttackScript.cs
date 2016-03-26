@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class NormalAttackScript : MonoBehaviour {
+	Unit	owner = null;
 
 	// Use this for initialization
 	void Start () {
@@ -17,8 +18,16 @@ public class NormalAttackScript : MonoBehaviour {
 		Unit colUnit = col.gameObject.GetComponent<Unit>();
 		if (colUnit != null) {
 			colUnit.Damage(7.0f);
+
+			if(colUnit.isDead()) {
+				if(owner != null) {
+					//Owner of projectile gets credit
+				}
+			}
 		}
 
 		Destroy(gameObject);
 	}
+
+	public void SetOwner(Unit newOwner) { owner = newOwner; }
 }

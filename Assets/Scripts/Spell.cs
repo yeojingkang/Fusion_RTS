@@ -11,6 +11,7 @@ public class Spell: MonoBehaviour {
 	}
 
 	GameObject spell = null;
+    Unit owner = null;
 
 	public SpellType	type = SpellType.SPELL_NONE;
 
@@ -21,6 +22,11 @@ public class Spell: MonoBehaviour {
 
     public int level = 0;
     public int max_level = 3;
+
+    public Spell(Unit newOwner)
+    {
+        owner = newOwner;
+    }
 
 	public void Update () {
 		if (type != SpellType.SPELL_PASSIVE)
@@ -65,6 +71,8 @@ public class Spell: MonoBehaviour {
 
     //        case SpellType.SPELL_NORMAL_ATTACK:
     //            GameObject.Instantiate(spell, position + forward * 1.5f, rotation);
+    //            GameObject proj = GameObject.Instantiate(spell, position + forward *1.5f, rotation) as GameObject;
+    //            proj.GetComponent<NormalAttackScript>().SetOwner(owner);
     //            break;
     //    }
 

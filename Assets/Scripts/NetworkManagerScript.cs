@@ -246,7 +246,6 @@ namespace CustomLobbyNetwork {
 			for ( int i = 0; i < lobbySlots.Length; ++i ) {
 				if ( lobbySlots[i] != null ) {
 					(lobbySlots[i] as LobbyPlayer).RpcUpdateCountdown(0);
-					//(lobbySlots[i] as LobbyPlayer).transform.parent = this.transform;
 				}
 			}
 

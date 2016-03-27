@@ -16,6 +16,7 @@ public class CameraControls : MonoBehaviour {
 	int					cur_zoom = 0;
 
 	public bool			is_window_focus;
+	public Unit			unit = null;
 
 	// Use this for initialization
 	void Start () {
@@ -31,6 +32,8 @@ public class CameraControls : MonoBehaviour {
 			mouse_drag_speed = OptionData.ScrollingSense;
 			mouse_speed = OptionData.EdgeScrollingSense;
 		}
+
+		is_window_focus = true;
 	}
 	
 	// Update is called once per frame
@@ -65,6 +68,14 @@ public class CameraControls : MonoBehaviour {
 		//Right
 		if (Input.GetKey(KeyCode.RightArrow)) {
 			gameObject.transform.Translate(gameObject.transform.right * dtSpeed);
+		}
+
+		//Center camera on unit
+		if(Input.GetKey(KeyCode.F1)) {
+			Vector3 newCamPos = unit.transform.position - transform.forward * transform.position.y;
+			newCamPos.y = transform.position.y;
+			transform.position = newCamPos;
+			;
 		}
 	}
 

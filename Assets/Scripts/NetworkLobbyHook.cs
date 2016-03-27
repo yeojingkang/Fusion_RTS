@@ -8,7 +8,7 @@ public class NetworkLobbyHook : LobbyHook {
 		LobbyPlayer lobby = lobbyPlayer.GetComponent<LobbyPlayer>();
 		Unit unit = gamePlayer.GetComponent<Unit>();
 
-		// Initialize game player stuffs here (e.g. name, health, score
+		// Initialize game player stuffs here (e.g. name, health, score)
 		unit.name = "Player_" + lobby.m_playerName;
 	}
 }

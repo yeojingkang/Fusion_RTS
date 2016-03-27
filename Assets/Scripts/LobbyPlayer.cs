@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -22,16 +23,25 @@ namespace CustomLobbyNetwork {
 		Transform		m_teamCube_1;
 		Transform		m_teamCube_2;
 
+		Transform		m_networkManagerParent;
+
 		void Start() {
 			m_teamCube_1 = GameObject.Find("Triangles").transform.GetComponentInChildren<GridLayoutGroup>().transform;
 			m_teamCube_2 = GameObject.Find("Cubes").transform.GetComponentInChildren<GridLayoutGroup>().transform;
 		
 			transform.parent = m_currentTeam;
 
-			DontDestroyOnLoad(transform.gameObject);
+			DontDestroyOnLoad(gameObject);
+
+			m_networkManagerParent = GameObject.Find("NetworkManager").transform;
+			if ( !m_networkManagerParent )
+				Debug.Log("NetworkManager not found");
 		}
 
 		void Update() {
+			if ( m_playerReady )
+				return;
+
 			m_currentTeam = ( m_team == 1 ) ? m_teamCube_1 : m_teamCube_2;
 			transform.parent = m_currentTeam;
 
@@ -85,6 +95,9 @@ namespace CustomLobbyNetwork {
 		}
 
 		void SetupRoomButtons() {
+			if ( SceneManager.GetActiveScene().name != "Menu" )
+				return;
+
 			m_switchTeamButton = GameObject.Find("SwitchSides_Button").GetComponent<Button>();
 			if ( !m_switchTeamButton )
 				Debug.Log("Switch team button initialization failed!");
@@ -144,6 +157,8 @@ namespace CustomLobbyNetwork {
 		[ClientRpc]
 		public void RpcUpdateCountdown( int countdown ) {
 			// TODO: do network lobby manager countdown text
+			if ( countdown <= 0 )
+				transform.parent = m_networkManagerParent;
 		}
 
 		[ClientRpc]
@@ -157,6 +172,9 @@ namespace CustomLobbyNetwork {
 
 		[Command]
 		public void CmdTeamChange() {
+			if ( m_playerReady )
+				return;
+
 			m_team = ( m_team != 1 ) ? 1 : 2;
 		}
 

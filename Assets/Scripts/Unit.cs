@@ -10,7 +10,7 @@ public class Unit : Objects {
 	float			hp = 0;
 	float			max_hp = 100;
 
-    float           pushing_force = 1.0f;
+	int				gold = 0;
 
 	bool			dead = false;
 
@@ -19,16 +19,15 @@ public class Unit : Objects {
 	float			curr_respawn_timer = 0.0f;
 	float			ori_respawn_timer = 5.0f;
 
-    
 	// Use this for initialization
 	new void	Start () {
 		type = ObjectType.OBJECT_TYPE_UNIT;
 
-        //for (int i = 0; i < spells.Length; ++i)
-        //    spells[i] = new Spell(this);
+		for (int i = 0; i < spells.Length; ++i)
+			spells[i] = new Spell(this);
 
 		//Temp. code (can be permanent if wanted)
-		//spells[0].Init(Spell.SpellType.SPELL_NORMAL_ATTACK);
+		spells[0].Init(Spell.SpellType.SPELL_NORMAL_ATTACK);
 
 		//Init navMeshAgent params
 		agent = GetComponent<NavMeshAgent>();
@@ -45,7 +44,9 @@ public class Unit : Objects {
 		//if (!isLocalPlayer)
 		//	return;
 
-		if(dead) {
+		//GetComponent<Renderer>().material.color = Color.black;
+
+		if (dead) {
 			UpdateRespawnTimer();
 		}
 		else {
@@ -54,8 +55,8 @@ public class Unit : Objects {
 		}
 
 		//Update spell cooldowns even while unit is dead
-		//foreach (Spell spell in spells)
-			//spell.Update();
+		foreach (Spell spell in spells)
+			spell.Update();
 	}
 
 	void	UpdateRespawnTimer() {
@@ -136,17 +137,17 @@ public class Unit : Objects {
 			current_command.startExecute = true;
 		}
 		else {
-            if (agent.remainingDistance <= spells[current_command.GetActivatedCommand()].getCastRange()
-             && Vector3.Angle(transform.forward, current_command.GetTargetPos() - transform.position) < 10.0f) {
-                spells[current_command.GetActivatedCommand()].Cast(transform.position, transform.forward, transform.rotation);
-                agent.Stop();
-                GetNextCommand();
-            }
-            else if (agent.remainingDistance <= agent.stoppingDistance) {
-                //Agent reached target position
-                agent.updateRotation = true;
-                GetNextCommand();
-            }
+			if (agent.remainingDistance <= spells[current_command.GetActivatedCommand()].getCastRange()
+			 && Vector3.Angle(transform.forward, current_command.GetTargetPos() - transform.position) < 10.0f) {
+				spells[current_command.GetActivatedCommand()].Cast(transform.position, transform.forward, transform.rotation);
+				agent.Stop();
+				GetNextCommand();
+			}
+			else if (agent.remainingDistance <= agent.stoppingDistance) {
+				//Agent reached target position
+				agent.updateRotation = true;
+				GetNextCommand();
+			}
 		}
 	}
 
@@ -187,7 +188,7 @@ public class Unit : Objects {
 	//Public functions
 	/////////////////////////////////////////////////////////////////////////////////////////
 
-	public void Damage(float dmg) {
+	public void	Damage(float dmg) {
 		hp -= dmg;
 
 		if (hp <= 0) {
@@ -195,7 +196,18 @@ public class Unit : Objects {
 		}
 	}
 
-    public bool isDead() {return dead;}
-	public void	setSpawnPosition(Vector3 newSpawnPos) { spawn_position = newSpawnPos; }
+	public void	addGold(int amt) { gold += amt; }
+	public void	reduceGold(int amt) {
+		gold -= amt;
+		if (gold < 0)
+			gold = 0;
+	}
 
+	public void	setSpawnPosition(Vector3 newSpawnPos) { spawn_position = newSpawnPos; }
+	public bool	isDead() { return dead; }
+
+	public void	changeSpell(int index, Spell.SpellType newType) {
+		if(index > -1 && index < spells.Length)
+			spells[index].Init(newType);
+	}
 }

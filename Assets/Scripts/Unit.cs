@@ -10,6 +10,8 @@ public class Unit : Objects {
 	float			hp = 0;
 	float			max_hp = 100;
 
+    float           pushing_force = 1.0f;
+
 	bool			dead = false;
 
 	Vector3			spawn_position = Vector3.zero;
@@ -17,6 +19,7 @@ public class Unit : Objects {
 	float			curr_respawn_timer = 0.0f;
 	float			ori_respawn_timer = 5.0f;
 
+    
 	// Use this for initialization
 	new void	Start () {
 		type = ObjectType.OBJECT_TYPE_UNIT;
@@ -135,7 +138,7 @@ public class Unit : Objects {
 		else {
             if (agent.remainingDistance <= spells[current_command.GetActivatedCommand()].getCastRange()
              && Vector3.Angle(transform.forward, current_command.GetTargetPos() - transform.position) < 10.0f) {
-            //    spells[current_command.GetActivatedCommand()].Cast(transform.position, transform.forward, transform.rotation);
+                spells[current_command.GetActivatedCommand()].Cast(transform.position, transform.forward, transform.rotation);
                 agent.Stop();
                 GetNextCommand();
             }

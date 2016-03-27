@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Spell_Toughen : Spell {
+public class Spell_Toughen :MonoBehaviour {
 
-	//increase the pushing force for the unit
+   
+    //increase the pushing force for the unit
 }

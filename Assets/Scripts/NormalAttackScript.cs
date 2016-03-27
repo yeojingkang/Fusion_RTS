@@ -6,7 +6,7 @@ public class NormalAttackScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		GetComponent<Rigidbody>().velocity = transform.forward * 15;
+		GetComponent<Rigidbody>().velocity = transform.forward * 22;
 	}
 	
 	// Update is called once per frame

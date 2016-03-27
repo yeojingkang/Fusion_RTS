@@ -44,7 +44,9 @@ public class Unit : Objects {
 		//if (!isLocalPlayer)
 		//	return;
 
-		if(dead) {
+		//GetComponent<Renderer>().material.color = Color.black;
+
+		if (dead) {
 			UpdateRespawnTimer();
 		}
 		else {

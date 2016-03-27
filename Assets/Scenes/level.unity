@@ -663,6 +663,7 @@ MonoBehaviour:
   mouse_drag_speed: 35
   mouse_screen_edge_threshold: 0.01
   mouse_zoom_amount: 2
+  unit: {fileID: 763402121}
 --- !u!81 &274810266
 AudioListener:
   m_ObjectHideFlags: 0

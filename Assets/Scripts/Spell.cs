@@ -4,10 +4,10 @@ using System.Collections;
 public class Spell {
 	public enum SpellType {
 		SPELL_NONE = 0,
-		SPELL_NORMAL_ATTACK = 1,
-		SPELL_ACTIVE_OFFENCE = 2,
-		SPELL_ACTIVE_DEFENSE = 3,
-		SPELL_PASSIVE = 4
+		SPELL_NORMAL_ATTACK,
+		SPELL_ACTIVE_OFFENCE,
+		SPELL_ACTIVE_DEFENSE,
+		SPELL_PASSIVE
 	}
 
 	Unit		owner = null;

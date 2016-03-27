@@ -10,6 +10,8 @@ public class Unit : Objects {
 	float			hp = 0;
 	float			max_hp = 100;
 
+	int				gold = 0;
+
 	bool			dead = false;
 
 	Vector3			spawn_position = Vector3.zero;
@@ -191,6 +193,19 @@ public class Unit : Objects {
 			Die();
 		}
 	}
+
+	public void	addGold(int amt) { gold += amt; }
+	public void	reduceGold(int amt) {
+		gold -= amt;
+		if (gold < 0)
+			gold = 0;
+	}
+
 	public void	setSpawnPosition(Vector3 newSpawnPos) { spawn_position = newSpawnPos; }
 	public bool	isDead() { return dead; }
+
+	public void	changeSpell(int index, Spell.SpellType newType) {
+		if(index > -1 && index < spells.Length)
+			spells[index].Init(newType);
+	}
 }

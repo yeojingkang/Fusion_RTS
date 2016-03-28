@@ -27,6 +27,7 @@ namespace CustomLobbyNetwork {
 		public InputField		m_ipAddressToConnect;
 		public InputField		m_nameInputField;
 		public Button			m_backButton;
+		public GameObject		m_menuCanvas;
 
 		protected bool			_isInGame;
 		protected bool 			_disconnectServer;
@@ -248,6 +249,7 @@ namespace CustomLobbyNetwork {
 				}
 			}
 
+			m_menuCanvas.GetComponent<Menu>().SwitchMenu(true);
 			ServerChangeScene( playScene );
 		}
 

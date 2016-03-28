@@ -11,13 +11,15 @@ GameObject:
   - 33: {fileID: 3345910}
   - 65: {fileID: 6517566}
   - 23: {fileID: 2348068}
-  - 54: {fileID: 5415352}
   - 114: {fileID: 11478400}
+  - 54: {fileID: 5415352}
   - 195: {fileID: 19522904}
+  - 114: {fileID: 11445504}
   - 114: {fileID: 11407876}
+  - 114: {fileID: 11407842}
   m_Layer: 0
   m_Name: Unit
-  m_TagString: Untagged
+  m_TagString: Unit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +31,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 177930}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 82.1, y: 3, z: 77.3}
+  m_LocalPosition: {x: 106.4, y: 0.5, z: 17.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +80,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -94,6 +96,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &11407842
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f730802c592ac8f4ca0d9d163d0ae3df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11407876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -126,6 +139,18 @@ MonoBehaviour:
     i15: 36
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
+--- !u!114 &11445504
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 177930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e2bb7680ee40b4cad9ce22563720ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FogOfWarPlane: {fileID: 0}
 --- !u!114 &11478400
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -142,6 +167,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  pushing_force: 1
 --- !u!195 &19522904
 NavMeshAgent:
   m_ObjectHideFlags: 1
@@ -153,7 +179,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 720
+  m_AngularSpeed: 1080
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1

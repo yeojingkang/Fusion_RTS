@@ -15,6 +15,7 @@ public class CameraControls : MonoBehaviour {
 	public const int	zoom_min = 0;
 	int					cur_zoom = 0;
 
+	public bool			is_window_focus;
 	public Unit			unit = null;
 
 	// Use this for initialization
@@ -31,10 +32,15 @@ public class CameraControls : MonoBehaviour {
 			mouse_drag_speed = OptionData.ScrollingSense;
 			mouse_speed = OptionData.EdgeScrollingSense;
 		}
+
+		is_window_focus = true;
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if ( !is_window_focus )
+			return;
+
 		update_keyboard();
 		update_mouse();
 
@@ -134,5 +140,9 @@ public class CameraControls : MonoBehaviour {
 
 	void update_zoom_position() {
 		//gameObject.transform.position = gameObject.transform.position + gameObject.transform.forward * cur_zoom;
+	}
+
+	void OnApplicationFocus( bool focusStatus ) {
+		is_window_focus = focusStatus;
 	}
 }

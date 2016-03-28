@@ -1,32 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Spell {
+public class Spell: MonoBehaviour {
 	public enum SpellType {
 		SPELL_NONE = 0,
 		SPELL_NORMAL_ATTACK,
 		SPELL_ACTIVE_OFFENCE,
 		SPELL_ACTIVE_DEFENSE,
-		SPELL_PASSIVE
+		SPELL_PASSIVE_TOUGHEN
 	}
 
-	Unit		owner = null;
-	GameObject	spell = null;
+	GameObject spell = null;
 
-	SpellType	type = SpellType.SPELL_NONE;
-	float		ori_cooldown = 0.0f;
+    Unit owner = null;
+
+	public SpellType    type = SpellType.SPELL_NONE;
+
+    public float ori_cooldown = 0.0f;
 	float		cooldown = 0.0f;
-	float		cast_range = 0.0f;
-	bool		mustBeTargeted = false;
-	int			level = 0;
-	int			max_level = 3;
+    public float cast_range = 0.0f;
+    public bool mustBeTargeted = false;
 
-	public Spell(Unit newOwner) {
-		owner = newOwner;
-	}
+    public int level = 0;
+    public int max_level = 3;
+
+    public Spell(Unit newOwner)
+    {
+        owner = newOwner;
+    }
 
 	public void Update () {
-		if (type != SpellType.SPELL_PASSIVE)
+		if (type != SpellType.SPELL_PASSIVE_TOUGHEN)
 		{
 			if (cooldown > 0.0f)
 				cooldown -= Time.deltaTime;
@@ -50,26 +54,38 @@ public class Spell {
 			mustBeTargeted = true;
 			spell = (GameObject)Resources.Load("Spells/Normal_Attack");
 			break;
+        case SpellType.SPELL_PASSIVE_TOUGHEN:
+            mustBeTargeted = false;
+            spell = (GameObject)Resources.Load("Spells/Toughen");
+            break;
 		}
 	}
 
-	public bool Cast(Vector3 position, Vector3 forward = default(Vector3), Quaternion rotation = default(Quaternion)) {
-		if (cooldown > 0.0f)
-			return false;
+    public bool Cast(Vector3 position, Vector3 forward = default(Vector3), Quaternion rotation = default(Quaternion))
+    {
+        if (cooldown > 0.0f)
+            return false;
 
-		switch(type) {
-		case SpellType.SPELL_NONE:
-			break;
+        switch (type)
+        {
+            case SpellType.SPELL_NONE:
+                break;
 
-		case SpellType.SPELL_NORMAL_ATTACK:
-			GameObject proj = GameObject.Instantiate(spell, position + forward * 1.5f, rotation) as GameObject;
-			proj.GetComponent<NormalAttackScript>().SetOwner(owner);
-			break;
-		}
+            case SpellType.SPELL_NORMAL_ATTACK:
+                GameObject.Instantiate(spell, position + forward * 1.5f, rotation);
+                GameObject proj = GameObject.Instantiate(spell, position + forward * 1.5f, rotation) as GameObject;
+                proj.GetComponent<NormalAttackScript>().SetOwner(owner);
+                break;
+            case SpellType.SPELL_PASSIVE_TOUGHEN:
+                GameObject toughen = GameObject.Instantiate(spell, position, rotation) as GameObject;
+                toughen.GetComponent<Spell_Toughen>().SetOwner(owner);
+                break;
+          
+        }
 
-		cooldown = ori_cooldown;
-		return true;
-	}
+        cooldown = ori_cooldown;
+        return true;
+    }
 
 	public float	getCooldown() { return cooldown; }
 	public bool		isReady() { return cooldown <= 0.0f; }

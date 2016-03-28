@@ -22,6 +22,7 @@ public class NormalAttackScript : MonoBehaviour {
 			if(colUnit.isDead()) {
 				if(owner != null) {
 					//Owner of projectile gets credit
+					owner.addGold(5);
 				}
 			}
 		}

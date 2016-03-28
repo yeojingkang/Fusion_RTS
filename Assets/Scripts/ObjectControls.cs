@@ -128,19 +128,16 @@ public class ObjectControls : MonoBehaviour {
 			if (unit != null) {  //Ignore if unit is somehow null
 				left_click_command = -1;
 
-				Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-				RaycastHit hit;
+				Vector3 movePos = camera.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, transform.position.y));
 
-				if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Level terrain"))) {
-					//Give move command to all selected units
-					if (Input.GetKey(KeyCode.LeftShift)
-					 || Input.GetKey(KeyCode.RightShift)) {
-						//Add command to the queue if shift button is held down
-						unit.AddCommand(ObjectCommands.Commands.UNIT_MOVE, hit.point);
-					}
-					else {
-						unit.SetSingleCommand(ObjectCommands.Commands.UNIT_MOVE, hit.point);
-					}
+				//Give move command to all selected units
+				if (Input.GetKey(KeyCode.LeftShift)
+				 || Input.GetKey(KeyCode.RightShift)) {
+					//Add command to the queue if shift button is held down
+					unit.AddCommand(ObjectCommands.Commands.UNIT_MOVE, movePos);
+				}
+				else {
+					unit.SetSingleCommand(ObjectCommands.Commands.UNIT_MOVE, movePos);
 				}
 			}
 		}

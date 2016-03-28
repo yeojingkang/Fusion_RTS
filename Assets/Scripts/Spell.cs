@@ -77,8 +77,10 @@ public class Spell: MonoBehaviour {
                 proj.GetComponent<NormalAttackScript>().SetOwner(owner);
                 break;
             case SpellType.SPELL_PASSIVE_TOUGHEN:
+                //creates the toughen spell and attach it to the owner
                 GameObject toughen = GameObject.Instantiate(spell, position, rotation) as GameObject;
                 toughen.GetComponent<Spell_Toughen>().SetOwner(owner);
+                toughen.transform.SetParent(owner.transform);
                 break;
           
         }

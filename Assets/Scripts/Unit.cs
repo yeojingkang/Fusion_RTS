@@ -33,6 +33,7 @@ public class Unit : Objects {
 		spells[0].Init(Spell.SpellType.SPELL_NORMAL_ATTACK);
         spells[1].Init(Spell.SpellType.SPELL_PASSIVE_TOUGHEN);
 		//Init navMeshAgent params
+        spells[1].Cast(transform.position, transform.forward, transform.rotation);
 		agent = GetComponent<NavMeshAgent>();
 		agent.speed = move_speed;
 		agent.acceleration = 9999.0f;
@@ -55,6 +56,7 @@ public class Unit : Objects {
 			UpdateRespawnTimer();
 		}
 		else {
+           
 			base.Update();
 			DoCurrentCommand();
 		}

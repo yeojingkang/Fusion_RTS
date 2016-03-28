@@ -42,6 +42,7 @@ public class Objective : NetworkBehaviour
 
 				//dirVector += direction;
 				dirVector += direction * m_pushSpeed * obj.GetComponent<Unit>().pushing_force * Time.deltaTime;
+                Debug.Log(obj.gameObject.name + "'s pushing force: " + obj.GetComponent<Unit>().pushing_force);
 			}
 
 			//Normalize the resultant directional vector

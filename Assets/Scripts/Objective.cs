@@ -33,15 +33,15 @@ public class Objective : NetworkBehaviour
 		Vector3 dirVector = Vector3.zero;
 
 		//Check if there is any unit within detection radius
-		if (m_unitDetection.m_unitList.Count > 0) 
+		if (m_unitDetection.m_unitObjectList.Count > 0) 
 		{
-			foreach (Transform obj in m_unitDetection.m_unitList) 
+            foreach (GameObject obj in m_unitDetection.m_unitObjectList) 
 			{
 				//Determine the push vector for each unit
-				Vector3 direction = (currentPos - obj.position).normalized; //multiply the unique pushing force here, start 1 as normal pushing force
+				Vector3 direction = (currentPos - obj.transform.position).normalized; //multiply the unique pushing force here, start 1 as normal pushing force
 
 				//dirVector += direction;
-				dirVector += direction * m_pushSpeed * Time.deltaTime;
+				dirVector += direction * m_pushSpeed * obj.GetComponent<Unit>().pushing_force * Time.deltaTime;
 			}
 
 			//Normalize the resultant directional vector

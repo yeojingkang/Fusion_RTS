@@ -14,6 +14,9 @@ public class Unit : Objects {
 
 	bool			dead = false;
 
+    //pushing force for each unit that pushes the ball
+    public float    pushing_force = 1.0f;
+
 	Vector3			spawn_position = Vector3.zero;
 	Vector3			spawn_forward = new Vector3(0,0,1);
 	float			curr_respawn_timer = 0.0f;
@@ -28,7 +31,7 @@ public class Unit : Objects {
 
 		//Temp. code (can be permanent if wanted)
 		spells[0].Init(Spell.SpellType.SPELL_NORMAL_ATTACK);
-
+        spells[1].Init(Spell.SpellType.SPELL_PASSIVE_TOUGHEN);
 		//Init navMeshAgent params
 		agent = GetComponent<NavMeshAgent>();
 		agent.speed = move_speed;

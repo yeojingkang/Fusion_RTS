@@ -7,7 +7,7 @@ public class Spell: MonoBehaviour {
 		SPELL_NORMAL_ATTACK,
 		SPELL_ACTIVE_OFFENCE,
 		SPELL_ACTIVE_DEFENSE,
-		SPELL_PASSIVE
+		SPELL_PASSIVE_TOUGHEN
 	}
 
 	GameObject spell = null;
@@ -30,7 +30,7 @@ public class Spell: MonoBehaviour {
     }
 
 	public void Update () {
-		if (type != SpellType.SPELL_PASSIVE)
+		if (type != SpellType.SPELL_PASSIVE_TOUGHEN)
 		{
 			if (cooldown > 0.0f)
 				cooldown -= Time.deltaTime;
@@ -54,6 +54,10 @@ public class Spell: MonoBehaviour {
 			mustBeTargeted = true;
 			spell = (GameObject)Resources.Load("Spells/Normal_Attack");
 			break;
+        case SpellType.SPELL_PASSIVE_TOUGHEN:
+            mustBeTargeted = false;
+            spell = (GameObject)Resources.Load("Spells/Toughen");
+            break;
 		}
 	}
 
@@ -71,6 +75,10 @@ public class Spell: MonoBehaviour {
                 GameObject.Instantiate(spell, position + forward * 1.5f, rotation);
                 GameObject proj = GameObject.Instantiate(spell, position + forward * 1.5f, rotation) as GameObject;
                 proj.GetComponent<NormalAttackScript>().SetOwner(owner);
+                break;
+            case SpellType.SPELL_PASSIVE_TOUGHEN:
+                GameObject toughen = GameObject.Instantiate(spell, position, rotation) as GameObject;
+                toughen.GetComponent<Spell_Toughen>().SetOwner(owner);
                 break;
           
         }

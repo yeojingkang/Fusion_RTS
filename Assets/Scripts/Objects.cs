@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Networking;
+//using UnityEngine.Networking;
 
-public class Objects : NetworkBehaviour {
+public class Objects : MonoBehaviour {
 	public enum ObjectType {
 		OBJECT_TYPE_NONE = 0,
 		OBJECT_TYPE_UNIT,

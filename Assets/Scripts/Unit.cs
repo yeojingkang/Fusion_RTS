@@ -42,15 +42,13 @@ public class Unit : Objects {
 
 		Respawn();
 
-		setupControls();
+		//setupControls();
 	}
 
 	// Update is called once per frame
 	new void	Update () {
-		if (!isLocalPlayer)
-			return;
-
-		//GetComponent<Renderer>().material.color = Color.black;
+		//if (!isLocalPlayer)
+		//	return;
 
 		if (dead) {
 			UpdateRespawnTimer();
@@ -219,8 +217,8 @@ public class Unit : Objects {
 	}
 
 	void setupControls() {
-		if ( !isLocalPlayer )
-			return;
+		//if ( !isLocalPlayer )
+		//	return;
 
 		ObjectControls control = Camera.main.GetComponent<ObjectControls>();
 		control.unit = this;

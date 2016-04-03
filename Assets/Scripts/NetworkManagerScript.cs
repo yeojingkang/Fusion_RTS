@@ -55,16 +55,16 @@ namespace CustomLobbyNetwork {
 		}
 
 		public void StartupHost() {
-			if (NetworkServer.active)
-				return;
+			//if (NetworkServer.active)
+			//	return;
 			
 			s_Singleton.networkPort = m_networkPort;
 			s_Singleton.StartHost();
 		}
 
 		public void StartupClient() {
-			if (NetworkClient.active)
-				return;
+			// (NetworkClient.active)
+			//	return;
 
 			m_ipAddressToConnect.text.ToLower();
 			if (!m_ipAddressToConnect.text.Equals("localhost") &&
@@ -264,9 +264,19 @@ namespace CustomLobbyNetwork {
 		public override void OnClientDisconnect( NetworkConnection conn ) {
 			base.OnClientDisconnect( conn );
 		}
-
+			
 		public override void OnClientError( NetworkConnection conn, int errorCode ) {
 			Debug.Log( "Client error: " + ( errorCode == 6 ? "timeout" : errorCode.ToString()) );
+		}
+
+		void OnPlayerDisconnected( NetworkPlayer networkPlayer ) {
+			Network.RemoveRPCs( networkPlayer );
+			Network.DestroyPlayerObjects( networkPlayer );
+
+			if ( Network.isClient )
+				StopClient();
+			else
+				StopHost();
 		}
 	}
 }
